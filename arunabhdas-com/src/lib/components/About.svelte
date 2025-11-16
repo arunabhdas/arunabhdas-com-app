@@ -20,14 +20,11 @@
 			<div class="order-2 md:order-1">
 				<div class="relative">
 					<!-- Placeholder for profile image - replace with actual image -->
-					<div class="aspect-square rounded-2xl bg-gradient-to-br from-neural-blue to-neural-blue-light opacity-20 card-glow flex items-center justify-center">
-						<img
-						src="/arunabhdas.jpg"
-						alt="Arunabh Das"
-						class="aspect-square rounded-2xl object-cover w-full shadow-2xl card-glow"
-						/>
-					</div>
-
+					<img
+					src="/arunabhdas.jpg"
+					alt="Arunabh Das"
+					class="aspect-square rounded-2xl object-cover w-full shadow-2xl card-glow"
+					/>
 					<!-- Decorative floating element -->
 					<div class="absolute -top-4 -right-4 w-24 h-24 bg-neural-blue/10 rounded-full blur-xl"></div>
 					<div class="absolute -bottom-4 -left-4 w-32 h-32 bg-neural-blue-light/10 rounded-full blur-xl"></div>
