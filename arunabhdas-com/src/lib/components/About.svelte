@@ -31,37 +31,44 @@
 				</div>
 			</div>
 
-			<!-- About Text Content -->
-			<div class="order-1 md:order-2 space-y-6">
-				<p class="text-gray-300 text-lg leading-relaxed">
-					I'm a passionate software engineer with expertise in building modern web applications
-					and scalable systems. With a strong foundation in full-stack development, I love
-					turning complex problems into elegant solutions.
-				</p>
+		<!-- About Text Content -->
+		<div class="order-1 md:order-2 space-y-6">
+			<p class="text-gray-300 text-lg leading-relaxed">
+				I'm a senior software engineer specializing in enterprise-scale mobile and AI applications,
+				cross-platform mobile development, and fullstack software development. As the official
+				maintainer of <a href="https://github.com/tabler/tabler" target="_blank" rel="noopener noreferrer" class="text-neural-blue hover:text-neural-blue-light transition-colors">Tabler</a> and lead developer of multiple AI frameworks including
+				AgentZero and OpenLibreAI, I architect solutions that scale to millions of users.
+			</p>
 
-				<p class="text-gray-400 leading-relaxed">
-					My journey in software development has been driven by curiosity and a constant desire
-					to learn. I specialize in creating user-friendly applications that not only look great
-					but also perform exceptionally well.
-				</p>
+			<p class="text-gray-400 leading-relaxed">
+				My expertise spans building Kotlin Multiplatform mobile applications with 85%+ code
+				sharing, AI-powered SaaS platforms, and enterprise CRM systems deployed across
+				Fortune 500 companies. I bridge the gap between cutting-edge AI research
+				and production-ready applications.
+			</p>
 
-				<p class="text-gray-400 leading-relaxed">
-					When I'm not coding, you'll find me exploring new technologies, contributing to
-					open-source projects, or sharing knowledge with the developer community.
-				</p>
+			<p class="text-gray-400 leading-relaxed">
+				With a proven track record in delivering mission-critical software at scale, I focus on
+				building robust, maintainable systems that solve real business problems. My work
+				combines deep technical expertise with a pragmatic approach to software architecture.
+			</p>
 
-				<!-- Key Highlights -->
-				<div class="grid grid-cols-2 gap-4 pt-6">
-					<div class="p-4 bg-neural-dark rounded-lg border border-neural-blue/20">
-						<p class="text-3xl font-bold text-neural-blue mb-1">5+</p>
-						<p class="text-gray-400 text-sm">Years Experience</p>
-					</div>
-					<div class="p-4 bg-neural-dark rounded-lg border border-neural-blue/20">
-						<p class="text-3xl font-bold text-neural-blue mb-1">50+</p>
-						<p class="text-gray-400 text-sm">Projects Completed</p>
-					</div>
+			<!-- Key Highlights -->
+			<div class="grid grid-cols-3 gap-4 pt-6">
+				<div class="p-4 bg-neural-dark rounded-lg border border-neural-blue/20">
+					<p class="text-3xl font-bold text-neural-blue mb-1">827+</p>
+					<p class="text-gray-400 text-sm">Repositories</p>
+				</div>
+				<div class="p-4 bg-neural-dark rounded-lg border border-neural-blue/20">
+					<p class="text-3xl font-bold text-neural-blue mb-1">15+</p>
+					<p class="text-gray-400 text-sm">Production Apps</p>
+				</div>
+				<div class="p-4 bg-neural-dark rounded-lg border border-neural-blue/20">
+					<p class="text-3xl font-bold text-neural-blue mb-1">OSS</p>
+					<p class="text-gray-400 text-sm">Maintainer</p>
 				</div>
 			</div>
+		</div>
 		</div>
 	</div>
 </section>

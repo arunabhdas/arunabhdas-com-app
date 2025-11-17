@@ -4,17 +4,17 @@
 	 * Provides contact form and social media links
 	 * Features form validation and submission handling
 	 */
-	
+
 	// Form state using Svelte 5 runes
 	let formData = $state({
 		name: '',
 		email: '',
 		message: ''
 	});
-	
+
 	let formStatus = $state<'idle' | 'submitting' | 'success' | 'error'>('idle');
 	let errorMessage = $state('');
-	
+
 	/**
 	 * Handle form submission
 	 * @param event - Form submit event
@@ -22,15 +22,15 @@
 	async function handleSubmit(event: Event) {
 		event.preventDefault();
 		formStatus = 'submitting';
-		
+
 		try {
 			// Replace with actual form submission logic (e.g., API call, email service)
 			// For now, simulate submission
 			await new Promise(resolve => setTimeout(resolve, 1500));
-			
+
 			// Simulate success
 			formStatus = 'success';
-			
+
 			// Reset form after 3 seconds
 			setTimeout(() => {
 				formData = { name: '', email: '', message: '' };
@@ -39,7 +39,7 @@
 		} catch (error) {
 			formStatus = 'error';
 			errorMessage = 'Failed to send message. Please try again.';
-			
+
 			// Reset error after 5 seconds
 			setTimeout(() => {
 				formStatus = 'idle';
@@ -47,28 +47,28 @@
 			}, 5000);
 		}
 	}
-	
+
 	// Social links
 	const socialLinks = [
 		{
 			name: 'GitHub',
-			url: 'https://github.com/yourusername',
+			url: 'https://github.com/arunabhdas',
 			icon: 'M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z'
 		},
 		{
-			name: 'LinkedIn',
-			url: 'https://linkedin.com/in/yourusername',
-			icon: 'M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z'
+			name: 'Medium Blog',
+			url: 'http://medium.com/@arunabhdas',
+			icon: 'M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z'
 		},
 		{
-			name: 'Twitter',
-			url: 'https://twitter.com/yourusername',
-			icon: 'M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z'
+			name: 'Stack Overflow',
+			url: 'https://stackoverflow.com/users/303347/arunabh-das',
+			icon: 'M18.986 21.865v-6.404h2.134V24H1.844v-8.539h2.13v6.404h15.012zM6.111 19.731H16.85v-2.137H6.111v2.137zm.259-4.852l10.48 2.189.451-2.07-10.478-2.187-.453 2.068zm1.359-5.056l9.705 4.53.903-1.95-9.706-4.53-.902 1.936v.014zm2.715-4.785l8.217 6.855 1.359-1.62-8.216-6.853-1.35 1.617-.01.001zM15.751 0l-1.746 1.294 6.405 8.604 1.746-1.294L15.749 0h.002z'
 		},
 		{
-			name: 'Email',
-			url: 'mailto:your.email@example.com',
-			icon: 'M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z'
+			name: 'Bluesky',
+			url: 'https://bsky.app/profile/arunabhdas.bsky.social',
+			icon: 'M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.561 1.266.902 1.565.139 1.908 0 3.08 0 3.768c0 .69.378 5.65.624 6.479.815 2.736 3.713 3.66 6.383 3.364.136-.02.275-.039.415-.056-.138.022-.276.04-.415.056-3.912.58-7.387 2.005-2.83 7.078 5.013 5.19 6.87-1.113 7.823-4.308.953 3.195 2.05 9.271 7.733 4.308 4.267-4.308 1.172-6.498-2.74-7.078a8.741 8.741 0 01-.415-.056c.14.017.279.036.415.056 2.67.297 5.568-.628 6.383-3.364.246-.828.624-5.79.624-6.478 0-.69-.139-1.861-.902-2.206-.659-.298-1.664-.62-4.3 1.24C16.046 4.748 13.087 8.687 12 10.8z'
 		}
 	];
 </script>
@@ -83,7 +83,7 @@
 				Have a question or want to work together? Feel free to reach out!
 			</p>
 		</div>
-		
+
 		<div class="grid md:grid-cols-2 gap-12">
 			<!-- Contact Form -->
 			<div>
@@ -103,7 +103,7 @@
 							disabled={formStatus === 'submitting'}
 						/>
 					</div>
-					
+
 					<!-- Email Input -->
 					<div>
 						<label for="email" class="block text-gray-300 mb-2 font-medium">
@@ -119,7 +119,7 @@
 							disabled={formStatus === 'submitting'}
 						/>
 					</div>
-					
+
 					<!-- Message Textarea -->
 					<div>
 						<label for="message" class="block text-gray-300 mb-2 font-medium">
@@ -135,7 +135,7 @@
 							disabled={formStatus === 'submitting'}
 						></textarea>
 					</div>
-					
+
 					<!-- Submit Button -->
 					<button
 						type="submit"
@@ -150,14 +150,14 @@
 							Send Message
 						{/if}
 					</button>
-					
+
 					<!-- Status Messages -->
 					{#if formStatus === 'success'}
 						<p class="text-green-400 text-center text-sm">
 							Thank you for your message! I'll get back to you soon.
 						</p>
 					{/if}
-					
+
 					{#if formStatus === 'error'}
 						<p class="text-red-400 text-center text-sm">
 							{errorMessage}
@@ -165,7 +165,7 @@
 					{/if}
 				</form>
 			</div>
-			
+
 			<!-- Contact Info & Social Links -->
 			<div class="space-y-8">
 				<!-- Social Links -->
@@ -189,7 +189,7 @@
 						{/each}
 					</div>
 				</div>
-				
+
 				<!-- Additional Info -->
 				<div class="p-6 bg-neural-dark border border-neural-blue/20 rounded-lg">
 					<h3 class="text-xl font-semibold text-gray-200 mb-3">Let's Build Something</h3>

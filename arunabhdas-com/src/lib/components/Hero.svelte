@@ -4,7 +4,7 @@
 	 * Landing section with animated introduction and call-to-action
 	 * Features gradient text and floating particle effects
 	 */
-	
+
 	/**
 	 * Scroll to contact section
 	 */
@@ -32,34 +32,35 @@
 			/>
 		{/each}
 	</div>
-	
+
 	<!-- Hero Content -->
 	<div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
 		<!-- Main Heading with animation -->
 		<h1 class="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 animate-slide-up">
-			<span class="text-gradient">Hi, I'm Arunabh Das</span>
+			<span class="text-gradient">Arunabh Das</span>
 		</h1>
-		
+
 		<!-- Subheading -->
 		<p class="text-xl sm:text-2xl text-gray-400 mb-4 animate-slide-up" style="animation-delay: 0.1s;">
-			Software Engineer
+			Senior Software Engineer
 		</p>
-		
+
 		<!-- Description -->
 		<p class="text-lg text-gray-500 mb-8 max-w-2xl mx-auto animate-slide-up" style="animation-delay: 0.2s;">
-			Building innovative solutions with modern technologies. Passionate about creating 
-			elegant, efficient, and scalable applications.
+			Building enterprise-grade AI solutions and cross-platform mobile applications at scale.
+			Official maintainer of <a href="https://github.com/tabler/tabler" target="_blank" rel="noopener noreferrer" class="text-neural-blue hover:text-neural-blue-light transition-colors">Tabler</a>
+			with 827+ open-source contributions.
 		</p>
-		
+
 		<!-- Call-to-Action Buttons -->
 		<div class="flex flex-col sm:flex-row gap-4 justify-center items-center animate-slide-up" style="animation-delay: 0.3s;">
 			<button
-				onclick={scrollToContact}
+				on:click={scrollToContact}
 				class="px-8 py-3 bg-neural-blue text-white rounded-lg hover:bg-neural-blue-light transition-colors duration-200 font-medium card-glow"
 			>
 				Get In Touch
 			</button>
-			
+
 			<a
 				href="#projects"
 				class="px-8 py-3 border-2 border-neural-blue text-neural-blue rounded-lg hover:bg-neural-blue hover:text-white transition-all duration-200 font-medium"
@@ -67,7 +68,7 @@
 				View Projects
 			</a>
 		</div>
-		
+
 		<!-- Scroll Indicator -->
 		<div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
 			<svg
