@@ -5,6 +5,8 @@
 	 * Features form validation and submission handling
 	 */
 
+
+
 	// Form state using Svelte 5 runes
 	let formData = $state({
 		name: '',
@@ -16,7 +18,7 @@
 	let errorMessage = $state('');
 
 	/**
-	 * Handle form submission
+	 * Handle form submission via API
 	 * @param event - Form submit event
 	 */
 	async function handleSubmit(event: Event) {
@@ -24,11 +26,20 @@
 		formStatus = 'submitting';
 
 		try {
-			// Replace with actual form submission logic (e.g., API call, email service)
-			// For now, simulate submission
-			await new Promise(resolve => setTimeout(resolve, 1500));
+			const response = await fetch('/api/contact', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(formData)
+			});
 
-			// Simulate success
+			const result = await response.json();
+
+			if (!response.ok) {
+				throw new Error(result.error || 'Failed to send message');
+			}
+
 			formStatus = 'success';
 
 			// Reset form after 3 seconds
@@ -37,8 +48,11 @@
 				formStatus = 'idle';
 			}, 3000);
 		} catch (error) {
+			console.error('Error sending message:', error);
 			formStatus = 'error';
-			errorMessage = 'Failed to send message. Please try again.';
+			errorMessage = error instanceof Error
+				? error.message
+				: 'Failed to send message. Please try again or email me directly at arunabhdas@gmail.com';
 
 			// Reset error after 5 seconds
 			setTimeout(() => {
@@ -87,7 +101,7 @@
 		<div class="grid md:grid-cols-2 gap-12">
 			<!-- Contact Form -->
 			<div>
-				<form onsubmit={handleSubmit} class="space-y-6">
+				<form on:submit={handleSubmit} class="space-y-6">
 					<!-- Name Input -->
 					<div>
 						<label for="name" class="block text-gray-300 mb-2 font-medium">
