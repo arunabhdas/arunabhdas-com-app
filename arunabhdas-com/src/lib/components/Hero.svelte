@@ -1,12 +1,7 @@
 <script lang="ts">
 	/**
 	 * Hero Section Component
-	 * Landing section with animated introduction and call-to-action
-	 * Features gradient text and floating particle effects
-	 */
-
-	/**
-	 * Scroll to contact section
+	 * Editorial minimalist landing section.
 	 */
 	function scrollToContact() {
 		const contact = document.getElementById('contact');
@@ -16,74 +11,45 @@
 	}
 </script>
 
-<!-- Hero Section with full viewport height -->
-<section class="relative min-h-screen flex items-center justify-center overflow-hidden">
-	<!-- Animated background particles/stars -->
-	<div class="absolute inset-0 opacity-30">
-		{#each Array(20) as _, i}
-			<div
-				class="absolute w-1 h-1 bg-neural-blue rounded-full animate-pulse"
-				style="
-					top: {Math.random() * 100}%;
-					left: {Math.random() * 100}%;
-					animation-delay: {Math.random() * 2}s;
-					animation-duration: {2 + Math.random() * 2}s;
-				"
-			/>
-		{/each}
-	</div>
+<section class="relative min-h-[90vh] flex flex-col justify-center overflow-hidden border-b border-portfolio-border pt-20 pb-12">
+	<div class="relative z-10 w-full max-w-6xl mx-auto px-6 lg:px-12 flex flex-col items-start text-left">
+		
+		<!-- Subheading / Eyebrow -->
+		<div class="flex items-center gap-3 mb-8">
+			<div class="w-10 h-[1px] bg-portfolio-accent"></div>
+			<p class="text-sm tracking-[0.2em] text-portfolio-accent uppercase font-medium">
+				Arunabh Das
+			</p>
+		</div>
 
-	<!-- Hero Content -->
-	<div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-		<!-- Main Heading with animation -->
-		<h1 class="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 animate-slide-up">
-			<span class="text-gradient">Arunabh Das</span>
+		<!-- Main Heading with Editorial Serif -->
+		<h1 class="text-6xl sm:text-7xl lg:text-8xl font-serif text-portfolio-text leading-tight mb-8">
+			Architecting<br />
+			<span class="text-portfolio-muted">Machine Learning</span><br />
+			Infrastructure.
 		</h1>
 
-		<!-- Subheading -->
-		<p class="text-xl sm:text-2xl text-gray-400 mb-4 animate-slide-up" style="animation-delay: 0.1s;">
-			Senior Software Engineer
-		</p>
-
 		<!-- Description -->
-		<p class="text-lg text-gray-500 mb-8 max-w-2xl mx-auto animate-slide-up" style="animation-delay: 0.2s;">
-			Building enterprise-grade AI solutions and cross-platform mobile applications at scale.
-			Official maintainer of <a href="https://github.com/tabler/tabler" target="_blank" rel="noopener noreferrer" class="text-neural-blue hover:text-neural-blue-light transition-colors">Tabler</a>
-			with 827+ open-source contributions.
+		<p class="text-xl sm:text-2xl text-portfolio-muted mb-12 max-w-2xl font-light leading-relaxed">
+			Senior Software Engineer. Building enterprise-grade AI solutions and cross-platform mobile architecture at scale. Official maintainer of <a href="https://github.com/tabler/tabler" target="_blank" rel="noopener noreferrer" class="text-portfolio-text border-b border-portfolio-border hover:border-portfolio-text transition-colors">Tabler</a>.
 		</p>
 
 		<!-- Call-to-Action Buttons -->
-		<div class="flex flex-col sm:flex-row gap-4 justify-center items-center animate-slide-up" style="animation-delay: 0.3s;">
+		<div class="flex flex-col sm:flex-row gap-6 mt-4">
 			<button
 				on:click={scrollToContact}
-				class="px-8 py-3 bg-neural-blue text-white rounded-lg hover:bg-neural-blue-light transition-colors duration-200 font-medium card-glow"
+				class="px-8 py-4 bg-portfolio-text text-portfolio-bg hover:bg-portfolio-muted transition-colors duration-200 font-medium tracking-wide text-sm"
 			>
-				Get In Touch
+				Contact Me
 			</button>
 
 			<a
 				href="#projects"
-				class="px-8 py-3 border-2 border-neural-blue text-neural-blue rounded-lg hover:bg-neural-blue hover:text-white transition-all duration-200 font-medium"
+				class="px-8 py-4 border border-portfolio-border text-portfolio-text hover:border-portfolio-text transition-colors duration-200 font-medium tracking-wide text-sm flex items-center gap-2"
 			>
-				View Projects
+				View Case Studies
 			</a>
 		</div>
 
-		<!-- Scroll Indicator -->
-		<div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-			<svg
-				class="w-6 h-6 text-neural-blue"
-				fill="none"
-				stroke="currentColor"
-				viewBox="0 0 24 24"
-			>
-				<path
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					stroke-width="2"
-					d="M19 14l-7 7m0 0l-7-7m7 7V3"
-				/>
-			</svg>
-		</div>
 	</div>
 </section>

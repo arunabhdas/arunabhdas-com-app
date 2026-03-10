@@ -6,69 +6,67 @@
 	 */
 </script>
 
-<section id="about" class="py-20 px-4 sm:px-6 lg:px-8">
+<section id="about" class="py-24 px-6 lg:px-12 border-b border-portfolio-border bg-portfolio-bg">
 	<div class="max-w-6xl mx-auto">
-		<!-- Section Header -->
-		<div class="text-center mb-12">
-			<h2 class="text-4xl font-bold text-gradient mb-4">About Me</h2>
-			<div class="w-20 h-1 bg-neural-blue mx-auto rounded-full"></div>
-		</div>
-
-		<!-- About Content Grid -->
-		<div class="grid md:grid-cols-2 gap-12 items-center">
+		
+		<div class="grid lg:grid-cols-2 gap-16 lg:gap-24 items-start">
+			
 			<!-- Profile Image/Visual Element -->
-			<div class="order-2 md:order-1">
-				<div class="relative">
-					<!-- Placeholder for profile image - replace with actual image -->
-					<img
+			<div class="order-2 lg:order-1 relative aspect-[4/5] bg-portfolio-surface border border-portfolio-border p-4 flex">
+				<img
 					src="/arunabhdas.jpg"
 					alt="Arunabh Das"
-					class="aspect-square rounded-2xl object-cover w-full shadow-2xl card-glow"
-					/>
-					<!-- Decorative floating element -->
-					<div class="absolute -top-4 -right-4 w-24 h-24 bg-neural-blue/10 rounded-full blur-xl"></div>
-					<div class="absolute -bottom-4 -left-4 w-32 h-32 bg-neural-blue-light/10 rounded-full blur-xl"></div>
+					class="w-full h-full object-cover grayscale opacity-90 mix-blend-luminosity hover:grayscale-0 hover:opacity-100 transition-all duration-700"
+				/>
+				<div class="absolute bottom-6 left-8 text-portfolio-text font-serif text-2xl rotate-180" style="writing-mode: vertical-rl;">
+					Arunabh Das
 				</div>
 			</div>
 
-		<!-- About Text Content -->
-		<div class="order-1 md:order-2 space-y-6">
-			<p class="text-gray-300 text-lg leading-relaxed">
-				I'm a senior software engineer specializing in enterprise-scale mobile and AI applications,
-				cross-platform mobile development, and fullstack software development. As the official
-				maintainer of <a href="https://github.com/tabler/tabler" target="_blank" rel="noopener noreferrer" class="text-neural-blue hover:text-neural-blue-light transition-colors">Tabler</a> and lead developer of multiple AI frameworks including
-				AgentZero and OpenLibreAI, I architect solutions that scale to millions of users.
-			</p>
-
-			<p class="text-gray-400 leading-relaxed">
-				My expertise spans building Kotlin Multiplatform mobile applications with 85%+ code
-				sharing, AI-powered SaaS platforms, and enterprise CRM systems deployed across
-				Fortune 500 companies. I bridge the gap between cutting-edge AI research
-				and production-ready applications.
-			</p>
-
-			<p class="text-gray-400 leading-relaxed">
-				With a proven track record in delivering mission-critical software at scale, I focus on
-				building robust, maintainable systems that solve real business problems. My work
-				combines deep technical expertise with a pragmatic approach to software architecture.
-			</p>
-
-			<!-- Key Highlights -->
-			<div class="grid grid-cols-3 gap-4 pt-6">
-				<div class="p-4 bg-neural-dark rounded-lg border border-neural-blue/20">
-					<p class="text-3xl font-bold text-neural-blue mb-1">827+</p>
-					<p class="text-gray-400 text-sm">Repositories</p>
+			<!-- About Text Content -->
+			<div class="order-1 lg:order-2 space-y-8 pt-4">
+				<div>
+					<h2 class="text-4xl lg:text-5xl font-serif text-portfolio-text mb-6">About Me</h2>
+					<div class="w-12 h-[1px] bg-portfolio-text mb-8"></div>
 				</div>
-				<div class="p-4 bg-neural-dark rounded-lg border border-neural-blue/20">
-					<p class="text-3xl font-bold text-neural-blue mb-1">15+</p>
-					<p class="text-gray-400 text-sm">Production Apps</p>
+
+				<div class="space-y-6 text-portfolio-muted font-light leading-relaxed text-lg">
+					<p>
+						I am a Senior Software Engineer specializing in enterprise-scale mobile architecture, 
+						high-throughput AI infrastructure, and systems design. As the official core maintainer 
+						of <a href="https://github.com/tabler/tabler" target="_blank" rel="noopener noreferrer" class="text-portfolio-text border-b border-portfolio-border hover:border-portfolio-text transition-colors pb-1">Tabler</a>, 
+						I've orchestrated the frontend architecture utilized by thousands of global enterprises.
+					</p>
+
+					<p>
+						My expertise bridges strict native mobile performance (Kotlin Multiplatform) with bleeding-edge 
+						backend AI orchestration. I architect platforms that guarantee deterministic reliability across 
+						volatile network boundaries and massive data scales.
+					</p>
+
+					<p>
+						With a proven track record delivering mission-critical infrastructure, my approach focuses 
+						on rigorous systems engineering, privacy-first design patterns, and uncompromised scalability.
+					</p>
 				</div>
-				<div class="p-4 bg-neural-dark rounded-lg border border-neural-blue/20">
-					<p class="text-3xl font-bold text-neural-blue mb-1">OSS</p>
-					<p class="text-gray-400 text-sm">Maintainer</p>
+
+				<!-- Key Highlights -->
+				<div class="grid grid-cols-3 gap-6 pt-12 border-t border-portfolio-border mt-12">
+					<div>
+						<p class="text-4xl font-serif text-portfolio-text mb-2">827<span class="text-portfolio-accent">+</span></p>
+						<p class="text-portfolio-muted text-xs tracking-widest uppercase font-medium">Repositories</p>
+					</div>
+					<div>
+						<p class="text-4xl font-serif text-portfolio-text mb-2">15<span class="text-portfolio-accent">+</span></p>
+						<p class="text-portfolio-muted text-xs tracking-widest uppercase font-medium">Production Apps</p>
+					</div>
+					<div>
+						<p class="text-4xl font-serif text-portfolio-text mb-2">OSS</p>
+						<p class="text-portfolio-muted text-xs tracking-widest uppercase font-medium">Maintainer</p>
+					</div>
 				</div>
 			</div>
-		</div>
+
 		</div>
 	</div>
 </section>

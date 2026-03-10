@@ -13,6 +13,6 @@
 	Root layout wrapper
 	All pages will be rendered within this structure
 -->
-<div class="min-h-screen bg-neural-darker">
+<div class="min-h-screen bg-portfolio-bg selection:bg-white selection:text-black">
 	{@render children()}
 </div>

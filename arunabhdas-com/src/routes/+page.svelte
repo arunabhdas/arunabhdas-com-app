@@ -9,11 +9,8 @@
 	import Header from '$lib/components/Header.svelte';
 	import Hero from '$lib/components/Hero.svelte';
 	import About from '$lib/components/About.svelte';
-	import Expertise from '$lib/components/Expertise.svelte';
 	import Skills from '$lib/components/Skills.svelte';
 	import Projects from '$lib/components/Projects.svelte';
-	import Achievements from '$lib/components/Achievements.svelte';
-	import OpenSource from '$lib/components/OpenSource.svelte';
 	import Contact from '$lib/components/Contact.svelte';
 	import Footer from '$lib/components/Footer.svelte';
 </script>
@@ -56,20 +53,11 @@
 		<!-- About Section -->
 		<About />
 
-		<!-- Expertise Highlights -->
-		<Expertise />
-
 		<!-- Skills Section -->
 		<Skills />
 
 		<!-- Projects Section -->
 		<Projects />
-
-		<!-- Key Achievements -->
-		<Achievements />
-
-		<!-- Open Source Impact -->
-		<OpenSource />
 
 		<!-- Contact Section -->
 		<Contact />

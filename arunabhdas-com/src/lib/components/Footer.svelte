@@ -9,45 +9,45 @@
 	const currentYear = new Date().getFullYear();
 </script>
 
-<footer class="bg-neural-dark border-t border-neural-blue/20 py-8 px-4 sm:px-6 lg:px-8">
+<footer class="bg-portfolio-bg border-t border-portfolio-border py-12 px-6 lg:px-12">
 	<div class="max-w-6xl mx-auto">
-		<div class="flex flex-col md:flex-row justify-between items-center gap-4">
+		<div class="flex flex-col md:flex-row justify-between items-center gap-6">
 			<!-- Copyright -->
-			<p class="text-gray-400 text-sm">
+			<p class="text-portfolio-muted text-sm tracking-wide">
 				© {currentYear} Arunabh Das. All rights reserved.
 			</p>
 			
 			<!-- Quick Links -->
-			<div class="flex gap-6">
+			<div class="flex gap-8">
 				<a
 					href="#about"
-					class="text-gray-400 hover:text-neural-blue transition-colors text-sm"
+					class="text-portfolio-text hover:text-portfolio-accent transition-colors text-xs tracking-widest uppercase font-medium"
 				>
 					About
 				</a>
 				<a
 					href="#skills"
-					class="text-gray-400 hover:text-neural-blue transition-colors text-sm"
+					class="text-portfolio-text hover:text-portfolio-accent transition-colors text-xs tracking-widest uppercase font-medium"
 				>
-					Skills
+					Domains
 				</a>
 				<a
 					href="#projects"
-					class="text-gray-400 hover:text-neural-blue transition-colors text-sm"
+					class="text-portfolio-text hover:text-portfolio-accent transition-colors text-xs tracking-widest uppercase font-medium"
 				>
-					Projects
+					Case Studies
 				</a>
 				<a
 					href="#contact"
-					class="text-gray-400 hover:text-neural-blue transition-colors text-sm"
+					class="text-portfolio-text hover:text-portfolio-accent transition-colors text-xs tracking-widest uppercase font-medium"
 				>
 					Contact
 				</a>
 			</div>
 			
 			<!-- Built With -->
-			<p class="text-gray-500 text-sm">
-				Built with <span class="text-neural-blue">Svelte 5</span> & <span class="text-neural-blue">Tailwind</span>
+			<p class="text-portfolio-muted text-xs tracking-widest uppercase">
+				<span class="text-portfolio-text">New York City</span>
 			</p>
 		</div>
 	</div>
