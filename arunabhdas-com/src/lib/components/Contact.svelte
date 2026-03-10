@@ -61,8 +61,8 @@
 	<div class="max-w-6xl mx-auto">
 		
 		<!-- Section Header -->
-		<div class="mb-20">
-			<h2 class="text-4xl lg:text-5xl font-serif text-portfolio-text mb-6">Inquiries</h2>
+		<div class="mb-20 pt-8">
+			<h2 class="text-4xl lg:text-5xl font-serif text-portfolio-text mb-6">Contact</h2>
 			<div class="w-12 h-[1px] bg-portfolio-text mb-6"></div>
 			<p class="text-xl text-portfolio-muted max-w-2xl font-light">
 				Available for select consulting engagements and systems architecture roles.

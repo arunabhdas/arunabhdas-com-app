@@ -10,7 +10,7 @@
 	// Navigation items configuration
 	const navItems = [
 		{ label: 'About', href: '#about' },
-		{ label: 'Domains', href: '#skills' },
+		{ label: 'Expertise', href: '#skills' },
 		{ label: 'Case Studies', href: '#projects' },
 		{ label: 'Contact', href: '#contact' }
 	];
