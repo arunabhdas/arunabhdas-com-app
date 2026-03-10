@@ -25,8 +25,8 @@
 		<!-- Main Heading with Editorial Serif -->
 		<h1 class="text-6xl sm:text-7xl lg:text-8xl font-serif text-portfolio-text leading-tight mb-8">
 			Architecting<br />
-			<span class="text-portfolio-muted">Machine Learning</span><br />
-			Infrastructure.
+			<span class="text-portfolio-muted">AI-native mobile applications</span><br />
+			and Machine Learning at scale
 		</h1>
 
 		<!-- Description -->
