@@ -1,0 +1,60 @@
+/* Shared styles for long-form guides, second half of the cascade. See guide-base.css. */
+/* sidenotes sit in the margin when there is one */
+@media (min-width:1180px){
+  .blog-guide .side-note{float:right;clear:right;width:244px;margin:.3em -288px 1em 0;padding:0 0 0 .9em;border-left:2px solid var(--leg);font-size:1rem;line-height:1.4;color:var(--fg)}
+  .blog-guide .plate.wide{width:calc(100% + 288px)}
+}
+@media (max-width:1179px){.blog-guide .side-note{margin:1em 0;padding-left:.9em;border-left:2px solid var(--leg);font-size:1.0313rem;line-height:1.42}}
+.blog-guide .side-note b{color:var(--ice);font-weight:600}
+
+/* clearing */
+.blog-guide .clearing{position:relative;max-width:1180px;margin:0 auto;padding:clamp(70px,14vh,150px) clamp(16px,6vw,72px) 34px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.04fr);gap:24px;align-items:end;min-height:92vh}
+.blog-guide .clearing h2{font-size:clamp(3rem,7vw,5.8rem);line-height:.92;color:#FFF6DC;text-shadow:0 2px 34px rgba(20,11,46,.75)}
+.blog-guide .clearing .say{font-size:1.25rem;line-height:1.42;color:#FFF3E2;text-shadow:0 1px 18px rgba(20,11,46,.95);max-width:26em}
+.blog-guide .clearing .unicorn{justify-self:end;width:min(100%,500px);filter:drop-shadow(0 0 38px rgba(255,214,150,.44))}
+@media (max-width:760px){.blog-guide .clearing{grid-template-columns:1fr;min-height:0}.blog-guide .clearing .unicorn{justify-self:center;width:min(92%,420px)}}
+.blog-guide footer{max-width:1180px;margin:0 auto;padding:18px clamp(16px,6vw,72px) 46px;font-size:1rem;color:#F4E6F0;text-shadow:0 1px 12px rgba(20,11,46,.98)}
+.blog-guide footer a{color:#FFE9B8}
+.blog-guide footer p{margin:0 0 .4em;max-width:760px}
+.blog-guide .reset{background:none;border:0;padding:0;font:inherit;color:#FFE9B8;text-decoration:underline;text-underline-offset:.18em;cursor:pointer}
+.blog-guide footer .reset{text-shadow:inherit}
+
+@media (max-width:760px){
+  .blog-guide{font-size:1.125rem}
+  .blog-guide .window{border-radius:0;border-left:0;border-right:0}
+  .blog-guide .tabs .tally{padding:0 .6em}
+  .blog-guide .hero{background:linear-gradient(180deg,rgba(1,14,25,.2),rgba(1,14,25,.62) 58%,rgba(1,14,25,.82))}
+  .blog-guide .wall{background-position:66% 50%}.blog-guide .wall i{background-position:66% 50%}
+}
+
+@media print{
+  .blog-guide{color-scheme:light}
+  .blog-guide{background:#fff;color:#111;font-size:11pt}
+  .blog-guide *,.blog-guide *::before,.blog-guide *::after{animation:none!important;text-shadow:none!important}
+  .blog-guide .wall,.blog-guide .tabs,.blog-guide .mark,.blog-guide .copy,.blog-guide .holdbtn,.blog-guide .start,.blog-guide .skip,.blog-guide .reset,.blog-guide .shellline,.blog-guide .prompt .pl,.blog-guide .prompt::before,.blog-guide .prompt::after{display:none!important}
+  .blog-guide .prompt{padding-left:0}
+  .blog-guide p,.blog-guide li,.blog-guide dd,.blog-guide td,.blog-guide th,.blog-guide b,.blog-guide .rules b,.blog-guide .note,.blog-guide .note b:first-child,.blog-guide .dest dt,.blog-guide .side-note b,.blog-guide .leg p,.blog-guide figcaption,.blog-guide .byline{color:#111!important}
+  .blog-guide .plate,.blog-guide .plate *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .blog-guide .plate p,.blog-guide .plate li,.blog-guide .plate td,.blog-guide .plate b{color:inherit!important}
+  .blog-guide .plate{break-inside:avoid}
+  .blog-guide .hero{min-height:0;background:none;padding:0 0 12pt}
+  .blog-guide h1,.blog-guide h2,.blog-guide .leg h2,.blog-guide .prompt h3,.blog-guide .clearing h2,.blog-guide h4,.blog-guide .clearing .say,.blog-guide footer,.blog-guide footer a{color:#111;text-shadow:none}
+  .blog-guide h1{font-size:40pt}.blog-guide .lede{color:#111;text-shadow:none}
+  .blog-guide .window{background:none;border:0;box-shadow:none;padding:0;-webkit-backdrop-filter:none;backdrop-filter:none;max-width:none}
+  .blog-guide .code,.blog-guide .out{background:#f4f6f8;border-color:#bbb;break-inside:avoid}.blog-guide .code pre{color:#111;white-space:pre-wrap}
+  .blog-guide .step{max-width:none}.blog-guide .plate.wide{width:100%}.blog-guide .side-note{float:none;margin:8pt 0;width:auto;color:#111}
+  .blog-guide :not(pre)>code{background:#eef1f4;color:#111}
+  .blog-guide .clearing{min-height:0;padding:12pt 0}
+}
+
+/* Tailwind preflight removes these defaults, and the guides rely on them. */
+.blog-guide ul{list-style:disc}
+.blog-guide ol{list-style:decimal}
+.blog-guide [id]{scroll-margin-top:calc(var(--site-header) + var(--tabh) + 20px)}
+@media (prefers-reduced-motion:reduce){html:has(.blog-guide){scroll-behavior:auto}}
+
+/* The site chrome sits outside .blog-guide, so it needs its own print rules. */
+@media print{
+  body:has(.blog-guide) header.sticky,body:has(.blog-guide) footer.bg-portfolio-bg{display:none!important}
+  body:has(.blog-guide) .bg-portfolio-bg{background:#fff!important}
+}

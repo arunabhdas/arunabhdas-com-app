@@ -1,13 +1,15 @@
 <script lang="ts">
 	/**
-	 * A code block with a copy button. Code lives in code-blocks.json, keyed by id,
-	 * so the commands stay separate from the page markup.
+	 * A code block with a copy button. Each post keeps its code in code-blocks.json,
+	 * keyed by id, so the code stays separate from the page markup.
 	 */
-	import blocks from './code-blocks.json';
+	import { getContext } from 'svelte';
 	import { highlight } from './highlight';
+	import { GUIDE_KEY, type Guide } from './progress.svelte';
 
-	const { id }: { id: keyof typeof blocks } = $props();
+	const { id }: { id: string } = $props();
 
+	const { blocks } = getContext<Guide>(GUIDE_KEY);
 	const block = $derived(blocks[id]);
 	const html = $derived(highlight(block.code, block.lang));
 
@@ -44,13 +46,15 @@
 	}
 </script>
 
-<div class="code has-copy" class:has-file={block.file}>
+<div class="code" class:has-copy={!block.out} class:out={block.out} class:has-file={block.file}>
 	{#if block.file}
 		<span class="file">{block.file}</span>
 	{/if}
 	<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
 	<pre tabindex="0"><code>{@html html}</code></pre>
-	<button class="copy" class:ok={copied} type="button" aria-label="Copy this code" onclick={copy}>
-		{copied ? 'Copied' : 'Copy'}
-	</button>
+	{#if !block.out}
+		<button class="copy" class:ok={copied} type="button" aria-label="Copy this code" onclick={copy}>
+			{copied ? 'Copied' : 'Copy'}
+		</button>
+	{/if}
 </div>

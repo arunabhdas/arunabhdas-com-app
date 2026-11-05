@@ -18,6 +18,17 @@ export type BlogPost = {
 
 const allPosts: BlogPost[] = [
 	{
+		slug: 'agentic-ai-without-the-token-tax',
+		title: 'Agentic AI Without the Token Tax: Building a Deterministic, On-Device Action Engine',
+		description:
+			'Fifteen steps to a Swift engine that answers known requests with rules, sends the rest to a local model, and checks every plan before it runs.',
+		date: '2026-11-05',
+		readingMinutes: 25,
+		tags: ['Agentic AI', 'On-Device AI', 'Swift', 'llama.cpp', 'Gemma'],
+		cover: '/blog/covers/agentic-ai-without-the-token-tax.jpg',
+		coverAlt: 'Rail tracks converging under a signal gantry at night, with the post title.'
+	},
+	{
 		slug: 'how-to-setup-dream-swe-dev-environment-on-macos',
 		title: 'How to Setup Dream SWE Dev Environment on macOS',
 		description:

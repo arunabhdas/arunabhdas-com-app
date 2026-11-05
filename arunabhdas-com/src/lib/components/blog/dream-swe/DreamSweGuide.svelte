@@ -2,52 +2,48 @@
 	/**
 	 * How to Setup Dream SWE Dev Environment on macOS
 	 * An illustrated guide that lives inside a WezTerm window. It keeps its own coolnight
-	 * look, scoped to .dream-guide in guide.css, between the site header and footer.
+	 * look, scoped to .blog-guide and .dream-guide, between the site header and footer.
 	 */
 	import { onMount, setContext } from 'svelte';
-	import CodeBlock from './CodeBlock.svelte';
+	import CodeBlock from '../guide/CodeBlock.svelte';
+	import Step from '../guide/Step.svelte';
+	import StepTabs from '../guide/StepTabs.svelte';
+	import Wall from '../guide/Wall.svelte';
+	import { GUIDE_KEY, GuideProgress } from '../guide/progress.svelte';
 	import KeyRepeatDemo from './KeyRepeatDemo.svelte';
-	import Step from './Step.svelte';
-	import StepTabs from './StepTabs.svelte';
-	import { GuideProgress, PROGRESS_KEY } from './progress.svelte';
+	import blocks from './code-blocks.json';
 	import unicorn from './assets/unicorn.webp';
-	import './guide.css';
+	import '../guide/guide-base.css';
+	import './dream.css';
+	import '../guide/guide-end.css';
 
-	const progress = new GuideProgress();
-	setContext(PROGRESS_KEY, progress);
+	const tabs = [
+		'mac',
+		'xcode',
+		'brew',
+		'wezterm',
+		'zsh',
+		'ssh',
+		'nvim',
+		'herdr',
+		'langs',
+		'ides',
+		'defaults',
+		'secrets',
+		'apps'
+	];
 
-	// Night turns to dawn over the last third of the walk.
-	let dawn = $state('0');
-	let ticking = false;
+	const progress = new GuideProgress('dream-swe-macos:done');
+	setContext(GUIDE_KEY, { progress, blocks, path: '~/dream' });
 
-	function updateSky() {
-		ticking = false;
-		const max = document.documentElement.scrollHeight - window.innerHeight;
-		const position = max > 0 ? window.scrollY / max : 0;
-		const t = Math.min(1, Math.max(0, (position - 0.62) / 0.33));
-		dawn = (t * t * (3 - 2 * t)).toFixed(3);
-	}
-
-	function onScroll() {
-		if (!ticking) {
-			ticking = true;
-			requestAnimationFrame(updateSky);
-		}
-	}
-
-	onMount(() => {
-		progress.load();
-		updateSky();
-	});
+	onMount(() => progress.load());
 </script>
 
-<svelte:window onscroll={onScroll} onresize={onScroll} />
-
-<div class="dream-guide">
+<div class="blog-guide dream-guide">
 	<a class="skip" href="#guide">Skip to the guide</a>
-	<div class="wall" aria-hidden="true"><i style:opacity={dawn}></i></div>
+	<Wall />
 
-	<StepTabs {progress} />
+	<StepTabs {progress} {tabs} />
 
 	<header class="hero">
 		<div class="shellline" aria-hidden="true">

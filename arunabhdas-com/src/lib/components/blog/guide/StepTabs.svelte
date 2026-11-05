@@ -6,23 +6,7 @@
 	import { onMount } from 'svelte';
 	import type { GuideProgress } from './progress.svelte';
 
-	const { progress }: { progress: GuideProgress } = $props();
-
-	const tabs = [
-		'mac',
-		'xcode',
-		'brew',
-		'wezterm',
-		'zsh',
-		'ssh',
-		'nvim',
-		'herdr',
-		'langs',
-		'ides',
-		'defaults',
-		'secrets',
-		'apps'
-	];
+	const { progress, tabs }: { progress: GuideProgress; tabs: string[] } = $props();
 
 	let current = $state('');
 	let list: HTMLOListElement;
@@ -45,7 +29,7 @@
 			},
 			{ rootMargin: '-25% 0px -65% 0px' }
 		);
-		document.querySelectorAll('.dream-guide .step').forEach((step) => observer.observe(step));
+		document.querySelectorAll('.blog-guide .step').forEach((step) => observer.observe(step));
 		return () => observer.disconnect();
 	});
 </script>
@@ -65,5 +49,5 @@
 			</li>
 		{/each}
 	</ol>
-	<div class="tally" aria-live="polite"><span><b>{progress.done.length}</b>/13 done</span></div>
+	<div class="tally" aria-live="polite"><span><b>{progress.done.length}</b>/{tabs.length} done</span></div>
 </nav>

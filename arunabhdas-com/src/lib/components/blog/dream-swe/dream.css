@@ -1,0 +1,155 @@
+/* Styles for the Dream SWE guide only: its wallpaper and illustrated plates. */
+.dream-guide{--night:url(./assets/night.webp);--dawn:url(./assets/dawn.webp)}
+/* 1: arch */
+.dream-guide .p-arch .fig{display:grid;grid-template-columns:190px 1fr;gap:clamp(14px,3vw,32px);align-items:center}
+.dream-guide .p-arch .routes{display:grid;gap:12px}
+.dream-guide .route{display:grid;grid-template-columns:5.6em 1fr auto;gap:.8em;align-items:center;padding:.65em .9em;background:var(--well);border:1px solid var(--line);border-left:3px solid var(--line);border-radius:4px;font-size:1rem}
+.dream-guide .route.on{border-left-color:var(--cursor)}
+.dream-guide .route code{background:none;padding:0;font-size:.85rem}
+.dream-guide .route code:first-child{color:var(--cursor)}
+.dream-guide .route:not(.on) code:first-child{color:var(--dim)}
+@media (max-width:560px){.dream-guide .p-arch .fig{grid-template-columns:1fr}.dream-guide .p-arch svg{max-width:150px}.dream-guide .route{grid-template-columns:1fr auto}.dream-guide .route span{display:none}}
+
+/* 2: dialog */
+.dream-guide .p-clt .fig{display:flex;flex-wrap:wrap;gap:22px 34px;align-items:center}
+.dream-guide .dialog{flex:1 1 300px;max-width:372px;padding:20px 20px 16px;background:rgba(38,43,49,.94);border:1px solid #4a5560;border-radius:14px;box-shadow:0 18px 50px rgba(0,0,0,.5);font:400 .9rem/1.36 var(--sans);color:#E7ECF0}
+.dream-guide .dialog svg{width:46px;height:46px;margin-bottom:10px}
+.dream-guide .dialog b{display:block;margin-bottom:.34em;font-weight:600;color:#fff}
+.dream-guide .dialog .btns{display:flex;gap:9px;margin-top:15px}
+.dream-guide .dialog .btns span{flex:1;text-align:center;padding:.34em 0;border-radius:7px;background:#4b545d;font-weight:500}
+.dream-guide .dialog .btns .go{background:#0a84ff;color:#fff}
+.dream-guide .gains{flex:1 1 200px;font-size:1rem}
+.dream-guide .gains p{margin:0 0 .5em;color:var(--dim)}
+.dream-guide .gains code{display:block;width:max-content;margin-bottom:.34em;font-size:.9rem}
+
+/* 3: zprofile */
+.dream-guide .dup .body{padding:.75em 1em 1em;position:relative}
+.dream-guide .dup .ln{display:block;white-space:nowrap;overflow:hidden;color:var(--red-text);text-decoration:line-through;text-decoration-color:rgba(229,46,46,.75)}
+.dream-guide .dup .ln:nth-child(2){opacity:.82}.dream-guide .dup .ln:nth-child(3){opacity:.62}.dream-guide .dup .ln:nth-child(4){opacity:.44}.dream-guide .dup .ln:nth-child(5){opacity:.28}
+.dream-guide .dup .times{display:block;margin:.1em 0 .5em;color:var(--dim)}
+.dream-guide .dup .good{display:block;padding:.26em .6em;margin-left:-.6em;background:rgba(71,255,156,.09);border-left:3px solid var(--cursor);color:var(--cursor);overflow-x:auto;white-space:nowrap}
+
+/* 4: wezterm anatomy */
+.dream-guide .p-wez .fig{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:clamp(16px,3vw,30px);align-items:stretch}
+.dream-guide .wezshot{position:relative;min-height:320px;border-radius:8px;overflow:hidden;background:var(--night) 62% 44%/190% no-repeat;border:1px solid var(--line)}
+.dream-guide .wezglass{position:absolute;inset:26px 24px;display:flex;flex-direction:column;background:rgba(1,20,35,.8);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-radius:6px;box-shadow:0 14px 44px rgba(0,0,0,.6);font:400 clamp(.62rem,1.1vw,.75rem)/1.6 var(--mono);overflow:hidden}
+.dream-guide .wezglass .bar{display:flex;align-items:flex-end;height:22px;background:#262b31;color:#AEBBC6;font-size:.66rem;padding-left:4px}
+.dream-guide .wezglass .bar b{background:#000;color:#fff;font-weight:400;padding:.22em .6em}
+.dream-guide .wezpad{flex:1;position:relative;margin:0;padding:8px 12px 12px 8px;outline:1px dashed rgba(255,224,115,.55);outline-offset:-1px}
+.dream-guide .wezpad .inner{height:100%;outline:1px dashed rgba(255,224,115,.35);padding:2px 3px;white-space:nowrap;overflow:hidden}
+.dream-guide .step ul.wezkeys{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;justify-content:center;gap:.7em;font-size:1rem;line-height:1.32}
+.dream-guide .wezkeys code{display:block;width:max-content;max-width:100%;background:none;padding:0;color:var(--cursor);font-size:.78rem}
+.dream-guide .swatches{display:grid;grid-template-columns:repeat(8,1fr);gap:0;margin-top:14px;border-radius:5px;overflow:hidden;border:1px solid var(--line)}
+.dream-guide .swatches div{height:50px;display:flex;align-items:flex-end;padding:.25em .34em;font:500 .625rem/1 var(--mono);color:rgba(1,20,35,.92)}
+.dream-guide .swatches .lt{color:var(--ice)}
+@media (max-width:760px){.dream-guide .p-wez .fig{grid-template-columns:1fr}.dream-guide .swatches{grid-template-columns:repeat(4,1fr)}}
+
+/* 5: ssh */
+.dream-guide .p-ssh .fig{display:grid;grid-template-columns:minmax(0,1fr) 92px minmax(0,1.1fr);gap:10px;align-items:center}
+.dream-guide .keybox{padding:1em 1.1em;background:var(--well);border:1px solid var(--line);border-radius:6px;font-size:1rem;line-height:1.36}
+.dream-guide .keybox.priv{border-color:rgba(255,224,115,.55)}
+.dream-guide .keybox svg{width:68px;height:40px;margin-bottom:.45em}
+.dream-guide .keybox b{display:block;font-weight:600;color:var(--ice);margin-bottom:.1em}
+.dream-guide .keybox code{font-size:.76rem}
+.dream-guide .hosts{display:grid;gap:7px;margin-top:.7em}
+.dream-guide .hosts span{display:flex;align-items:center;gap:.5em;padding:.2em .6em;background:rgba(3,50,89,.5);border-radius:3px;font:500 .8rem/1.5 var(--mono);color:var(--ice)}
+.dream-guide .hosts span::before{content:"";width:7px;height:7px;background:var(--cursor);border-radius:50%}
+.dream-guide .flow{display:flex;flex-direction:column;align-items:center;gap:4px;font:500 .68rem/1.2 var(--mono);color:var(--cursor);text-align:center}
+.dream-guide .flow svg{width:80px;height:16px}
+@media (max-width:640px){.dream-guide .p-ssh .fig{grid-template-columns:1fr}.dream-guide .flow{flex-direction:row;justify-content:center}.dream-guide .flow svg{transform:rotate(90deg);width:34px}}
+
+/* 6: prompt */
+.dream-guide .anat .body{padding:1em 1.1em;font-size:clamp(.66rem,1.6vw,.875rem);overflow-x:auto}
+.dream-guide .anat .row{display:flex;align-items:baseline;gap:.6em;white-space:nowrap}
+.dream-guide .anat .fill{flex:1;min-width:30px;border-bottom:2px dotted #2d5674;transform:translateY(-.3em)}
+.dream-guide .anat .ghost{color:#577a93}
+.dream-guide .step ul.legend{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:.6em 1.6em;margin:.9em 0 0;padding:0;font-size:1rem;line-height:1.3}
+.dream-guide .legend b{display:block;font:500 .78rem/1.6 var(--mono)}
+
+/* 7: nvchad */
+.dream-guide .nv{background:#1E222A;border:1px solid var(--line);border-radius:7px;overflow:hidden;font:400 clamp(.64rem,1.25vw,.78rem)/1.62 var(--mono);color:#ABB2BF;position:relative}
+.dream-guide .nv .top{display:flex;background:#181B21;color:#6F7787;font-size:.9em}
+.dream-guide .nv .top span{padding:.3em .95em}
+.dream-guide .nv .top .on{background:#1E222A;color:#ABB2BF;border-top:2px solid #98C379}
+.dream-guide .nv .main{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,3.3fr);min-height:292px}
+.dream-guide .nv .tree{padding:.55em .7em;background:#181B21;white-space:nowrap;overflow:hidden}
+.dream-guide .nv .tree .dir{color:#61AFEF}.dream-guide .nv .tree .cur{background:#2A2F39;color:#E5E9F0;display:block;margin:0 -.7em;padding:0 .7em}
+.dream-guide .nv pre{margin:0;padding:.55em .6em;font:inherit;overflow:hidden}
+.dream-guide .nv pre .ln{color:#4B5263;display:inline-block;width:2.3em;text-align:right;padding-right:.9em}
+.dream-guide .nv .kw{color:#C678DD}.dream-guide .nv .fn{color:#61AFEF}.dream-guide .nv .st{color:#98C379}.dream-guide .nv .ty{color:#E5C07B}.dream-guide .nv .cm{color:#5C6370}
+.dream-guide .nv .tele{position:absolute;right:5%;top:17%;width:47%;background:#181B21;border:1px solid #3E4451;border-radius:5px;box-shadow:0 14px 38px rgba(0,0,0,.55);overflow:hidden}
+.dream-guide .nv .tele .q{padding:.28em .7em;background:#E06C75;color:#181B21;font-weight:700}
+.dream-guide .nv .tele .in{padding:.3em .7em;color:#E5E9F0;border-bottom:1px solid #2A2F39}
+.dream-guide .nv .tele .res{padding:.3em .7em}
+.dream-guide .nv .tele .res span{display:block;white-space:nowrap;overflow:hidden}
+.dream-guide .nv .tele .res .hit{background:#2A2F39;color:#E5E9F0;margin:0 -.7em;padding:0 .7em}
+.dream-guide .nv .status{display:flex;align-items:stretch;background:#22262E;font-size:.92em}
+.dream-guide .nv .status .mode{background:#98C379;color:#1E222A;font-weight:700;padding:.1em .7em}
+.dream-guide .nv .status span{padding:.1em .7em}
+.dream-guide .nv .status .sp{flex:1}
+.dream-guide .nv .status .pill{background:#E06C75;color:#1E222A}
+.dream-guide .nv .status .pos{background:#98C379;color:#1E222A}
+.dream-guide .nv .cmd{padding:.1em .5em;background:#011423;color:var(--fg)}
+.dream-guide .need{width:100%;border-collapse:collapse;margin:1em 0 1.3em;font-size:1.0313rem;line-height:1.36}
+.dream-guide .need th{text-align:left;font-weight:500;color:var(--dim);padding:.3em .8em .3em 0;border-bottom:1px solid var(--line)}
+.dream-guide .need td{padding:.42em .8em .42em 0;border-bottom:1px solid rgba(33,73,105,.5);vertical-align:top}
+.dream-guide .need td:first-child{white-space:nowrap}
+.dream-guide .need code{white-space:nowrap}
+@media (max-width:620px){.dream-guide .nv .main{grid-template-columns:1fr}.dream-guide .nv .tree{display:none}.dream-guide .nv .tele{width:70%;right:3%}}
+
+/* 8: herdr */
+.dream-guide .hd{display:grid;grid-template-columns:minmax(150px,.72fr) minmax(0,2.2fr);min-height:296px;background:#011423;border:1px solid var(--line);border-radius:7px;overflow:hidden;font:400 clamp(.66rem,1.2vw,.78rem)/1.58 var(--mono)}
+.dream-guide .hd .side{padding:.7em .75em;background:#02192B;border-right:1px solid var(--line)}
+.dream-guide .hd .ws{margin-bottom:.8em}
+.dream-guide .hd .ws b{display:block;color:var(--ice);font-weight:500}
+.dream-guide .hd .ag{display:flex;align-items:center;gap:.5em;color:var(--dim);padding-left:.2em;white-space:nowrap}
+.dream-guide .hd .ag i{flex:none;width:.58em;height:.58em;border-radius:50%;background:currentColor}
+.dream-guide .hd .ag.working i{color:var(--cyan)}.dream-guide .hd .ag.blocked i{color:var(--yellow)}.dream-guide .hd .ag.done i{color:var(--cursor)}.dream-guide .hd .ag.idle i{color:#4f7490}
+.dream-guide .hd .ag.blocked{color:var(--yellow)}
+.dream-guide .hd .panes{display:grid;grid-template-columns:1.25fr 1fr;grid-template-rows:1.3fr 1fr;min-width:0}
+.dream-guide .hd .pane{padding:.5em .7em;border-left:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden;white-space:nowrap;min-width:0}
+.dream-guide .hd .pane:first-child{grid-row:span 2;border-left:0;border-bottom:0;box-shadow:inset 0 0 0 1px rgba(71,255,156,.42)}
+.dream-guide .hd .pane:last-child{border-bottom:0}
+.dream-guide .step ul.keys{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:.34em 1.6em;margin:.8em 0 1.2em;padding:0;list-style:none;font-size:1.0313rem}
+@media (max-width:620px){.dream-guide .hd{grid-template-columns:1fr}.dream-guide .hd .side{display:flex;flex-wrap:wrap;gap:0 1.4em;border-right:0;border-bottom:1px solid var(--line)}.dream-guide .hd .panes{grid-template-columns:1fr;grid-template-rows:auto}.dream-guide .hd .pane{min-height:74px;border-left:0}.dream-guide .hd .pane:first-child{grid-row:auto}}
+
+/* 9: toolchains */
+.dream-guide .shelf{width:100%;border-collapse:collapse;font-size:1.0313rem;line-height:1.34}
+.dream-guide .shelf th{text-align:left;font-weight:500;color:var(--dim);padding:.3em .9em .35em 0;border-bottom:1px solid var(--line)}
+.dream-guide .shelf td{padding:.5em .9em .5em 0;border-bottom:1px solid rgba(33,73,105,.5)}
+.dream-guide .shelf td:first-child{font:600 1.32rem/1.1 var(--cond);color:var(--ice);white-space:nowrap}
+.dream-guide .shelf td:nth-child(2){color:var(--cursor);font:500 .84rem/1.3 var(--mono)}
+.dream-guide .shelf td:nth-child(3){font:400 .84rem/1.3 var(--mono);color:var(--fg)}
+.dream-guide .scroll{overflow-x:auto}
+
+/* 11: key repeat */
+.dream-guide .hold{padding:1.05em 1.15em 1.15em;background:var(--well);border:1px solid var(--line);border-radius:7px}
+.dream-guide .lane{display:grid;grid-template-columns:7.8em minmax(0,1fr) 2.6em;gap:.8em;align-items:center;margin-bottom:.7em}
+.dream-guide .lane .nm{font-size:.98rem;line-height:1.16}
+.dream-guide .lane .nm small{display:block;font:400 .68rem/1.5 var(--mono);color:var(--dim)}
+.dream-guide .lane .run{height:2em;display:flex;align-items:center;justify-content:flex-end;overflow:hidden;white-space:nowrap;padding:0 .5em;background:#011423;border:1px solid var(--line);border-radius:3px;font:500 .9rem/1 var(--mono);color:var(--fg)}
+.dream-guide .lane .run:empty::before{content:"█";color:var(--line)}
+.dream-guide .lane.fast .run{color:var(--cursor)}
+.dream-guide .lane .ct{font:700 .95rem/1 var(--mono);text-align:right;color:var(--ice)}
+.dream-guide .holdbtn{display:block;width:100%;margin-top:.3em;padding:.68em 1em;background:var(--sel);color:var(--ice);border:1px solid var(--line);border-bottom-width:3px;border-radius:5px;font:500 .875rem/1.2 var(--mono);cursor:pointer;touch-action:none;user-select:none;-webkit-user-select:none}
+.dream-guide .holdbtn:hover{border-color:var(--cursor)}
+.dream-guide .holdbtn.down{background:var(--cursor);border-color:var(--cursor);color:var(--bg);transform:translateY(2px);border-bottom-width:1px}
+
+/* 12: git-crypt */
+.dream-guide .p-sec .fig{display:grid;grid-template-columns:minmax(0,1fr) 74px minmax(0,1fr) 74px minmax(0,1fr);align-items:stretch}
+.dream-guide .vault{display:flex;flex-direction:column;padding:.8em .9em;background:var(--well);border:1px solid var(--line);border-radius:6px;font-size:.98rem;line-height:1.3}
+.dream-guide .vault b{display:block;margin-bottom:.1em;font-weight:600;color:var(--ice)}
+.dream-guide .vault .bytes{margin-top:auto;padding-top:.65em;font:400 .71rem/1.5 var(--mono);overflow:hidden;word-break:break-all}
+.dream-guide .vault.locked{border-color:var(--purple)}
+.dream-guide .vault.locked .bytes{color:var(--purple)}
+.dream-guide .vault .bytes.plain{color:var(--cursor);word-break:normal;white-space:nowrap}
+.dream-guide .step-ar{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font:500 .625rem/1.2 var(--mono);color:var(--dim);text-align:center;padding:0 3px}
+.dream-guide .step-ar svg{width:50px;height:14px}
+@media (max-width:720px){.dream-guide .p-sec .fig{grid-template-columns:1fr}.dream-guide .step-ar{flex-direction:row;padding:6px 0}.dream-guide .step-ar svg{transform:rotate(90deg);width:30px}}
+
+/* 13: dock */
+.dream-guide .dock{display:flex;justify-content:space-between;gap:clamp(4px,1.6vw,14px);padding:.8em clamp(.5em,2vw,1.1em) .7em;background:rgba(203,224,240,.09);border:1px solid rgba(203,224,240,.2);border-radius:18px}
+.dream-guide .dock div{flex:1;min-width:0;text-align:center;font-size:.9rem;line-height:1.14;color:var(--ice)}
+.dream-guide .dock svg{width:clamp(38px,8vw,58px);height:auto;margin:0 auto .42em}
+.dream-guide .dock small{display:block;font:700 .7rem/1.5 var(--mono);color:var(--cursor)}
+

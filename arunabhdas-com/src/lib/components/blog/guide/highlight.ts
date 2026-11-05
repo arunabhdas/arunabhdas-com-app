@@ -1,5 +1,5 @@
 /**
- * A small highlighter for the guide's shell, Lua, JSON, and Vim snippets.
+ * A small highlighter for the guides' shell, Lua, JSON, Vim, and Swift snippets.
  * Every string is escaped here, so the result is safe to render with {@html}.
  */
 const TOKEN =
@@ -52,7 +52,51 @@ function highlightShell(line: string) {
 	return comment ? html + span('t-c', comment) : html;
 }
 
+const SWIFT_TOKEN =
+	/(?<c>\/\/.*$)|(?<s>#"(?:[^"]|"(?!#))*"#|"(?:[^"\\]|\\.)*")|(?<r>(?<=[(=:,]\s?)\/(?![/*\s])(?:[^/\\\n]|\\.)+\/)|(?<f>[@#][A-Za-z]+)|(?<k>\b(?:actor|as|async|await|break|case|catch|continue|default|defer|do|else|enum|extension|false|for|func|guard|if|import|in|init|is|let|nil|private|protocol|public|return|self|static|struct|switch|throw|throws|true|try|var|where|while)\b)|(?<v>\b[A-Z][A-Za-z0-9]*\b)/g;
+const SWIFT_CLASS: Record<string, string> = {
+	c: 't-c',
+	s: 't-s',
+	r: 't-s',
+	f: 't-f',
+	k: 't-k',
+	v: 't-v'
+};
+
+function highlightSwift(code: string) {
+	let inString = false;
+	return code
+		.split('\n')
+		.map((line) => {
+			const fence = line.includes('"""');
+			if (inString) {
+				if (fence) inString = false;
+				return span('t-s', line);
+			}
+			if (fence) {
+				const [before, after] = [line.slice(0, line.indexOf('"""')), line.slice(line.indexOf('"""'))];
+				inString = true;
+				return highlightSwiftLine(before) + span('t-s', after);
+			}
+			return highlightSwiftLine(line);
+		})
+		.join('\n');
+}
+
+function highlightSwiftLine(line: string) {
+	let html = '';
+	let index = 0;
+	for (const match of line.matchAll(SWIFT_TOKEN)) {
+		const group = Object.keys(SWIFT_CLASS).find((name) => match.groups?.[name] !== undefined)!;
+		html += escapeHtml(line.slice(index, match.index)) + span(SWIFT_CLASS[group], match[0]);
+		index = match.index + match[0].length;
+	}
+	return html + escapeHtml(line.slice(index));
+}
+
 export function highlight(code: string, lang: string) {
+	if (lang === 'swift') return highlightSwift(code);
+
 	const marker = code.slice(0, 60).includes('wezterm') ? '--' : '#';
 	let heredoc: string | null = null;
 
