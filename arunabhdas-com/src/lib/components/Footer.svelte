@@ -18,27 +18,33 @@
 			</p>
 			
 			<!-- Quick Links -->
-			<div class="flex gap-8">
+			<div class="flex flex-wrap justify-center gap-x-8 gap-y-3">
 				<a
-					href="#about"
+					href="/#about"
 					class="text-portfolio-text hover:text-portfolio-accent transition-colors text-xs tracking-widest uppercase font-medium"
 				>
 					About
 				</a>
 				<a
-					href="#skills"
+					href="/#skills"
 					class="text-portfolio-text hover:text-portfolio-accent transition-colors text-xs tracking-widest uppercase font-medium"
 				>
 					Domains
 				</a>
 				<a
-					href="#projects"
+					href="/#projects"
 					class="text-portfolio-text hover:text-portfolio-accent transition-colors text-xs tracking-widest uppercase font-medium"
 				>
 					Case Studies
 				</a>
 				<a
-					href="#contact"
+					href="/blog"
+					class="text-portfolio-text hover:text-portfolio-accent transition-colors text-xs tracking-widest uppercase font-medium"
+				>
+					Blog
+				</a>
+				<a
+					href="/#contact"
 					class="text-portfolio-text hover:text-portfolio-accent transition-colors text-xs tracking-widest uppercase font-medium"
 				>
 					Contact

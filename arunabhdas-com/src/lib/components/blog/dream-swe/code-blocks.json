@@ -1,0 +1,207 @@
+{
+	"mac-check": {
+		"lang": "sh",
+		"file": "",
+		"code": "uname -m       # arm64 on Apple Silicon, x86_64 on Intel\nsw_vers        # your macOS version\necho $SHELL    # /bin/zsh on any modern Mac"
+	},
+	"clt-install": {
+		"lang": "sh",
+		"file": "",
+		"code": "xcode-select --install"
+	},
+	"clt-check": {
+		"lang": "sh",
+		"file": "",
+		"code": "xcode-select -p\nclang --version\nmake --version"
+	},
+	"brew-install": {
+		"lang": "sh",
+		"file": "",
+		"code": "brew --version || /bin/bash -c \\\n  \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\""
+	},
+	"brew-shellenv": {
+		"lang": "sh",
+		"file": "",
+		"code": "grep -qs 'brew shellenv' ~/.zprofile ||\n  echo 'eval \"$(/opt/homebrew/bin/brew shellenv)\"' >> ~/.zprofile\neval \"$(/opt/homebrew/bin/brew shellenv)\"\n\nwhich brew\nbrew doctor"
+	},
+	"wezterm-install": {
+		"lang": "sh",
+		"file": "",
+		"code": "brew install --cask wezterm font-jetbrains-mono-nerd-font"
+	},
+	"wezterm-config": {
+		"lang": "sh",
+		"file": "~/.wezterm.lua",
+		"code": "[ -e ~/.wezterm.lua ] && mv ~/.wezterm.lua ~/.wezterm.lua.bak.$(date +%Y%m%d-%H%M%S)\n\ncat > ~/.wezterm.lua <<'EOF'\nlocal wezterm = require(\"wezterm\")\nlocal config = wezterm.config_builder()\n\nconfig.font = wezterm.font(\"JetBrainsMono Nerd Font\")\nconfig.font_size = 15\n\n-- Clean titlebar-less look that keeps the native resize border.\nconfig.window_decorations = \"RESIZE | MACOS_FORCE_ENABLE_SHADOW\"\n\nconfig.window_background_opacity = 0.8\nconfig.macos_window_background_blur = 10\n\n-- Breathing room, and an edge that is easier to aim for with the mouse.\nconfig.window_padding = { left = 8, right = 12, top = 8, bottom = 12 }\n\n-- Cmd-drag anywhere to move the borderless window.\nconfig.mouse_bindings = {\n  {\n    event = { Drag = { streak = 1, button = \"Left\" } },\n    mods = \"CMD\",\n    action = wezterm.action.StartWindowDrag,\n  },\n}\n\n-- coolnight\nconfig.colors = {\n  foreground = \"#CBE0F0\",\n  background = \"#011423\",\n  cursor_bg = \"#47FF9C\",\n  cursor_border = \"#47FF9C\",\n  cursor_fg = \"#011423\",\n  selection_bg = \"#033259\",\n  selection_fg = \"#CBE0F0\",\n  ansi = { \"#214969\", \"#E52E2E\", \"#44FFB1\", \"#FFE073\", \"#0FC5ED\", \"#a277ff\", \"#24EAF7\", \"#24EAF7\" },\n  brights = { \"#214969\", \"#E52E2E\", \"#44FFB1\", \"#FFE073\", \"#A277FF\", \"#a277ff\", \"#24EAF7\", \"#24EAF7\" },\n}\n\nreturn config\nEOF"
+	},
+	"wezterm-font-check": {
+		"lang": "sh",
+		"file": "",
+		"code": "wezterm ls-fonts --list-system | grep -i \"JetBrainsMono Nerd\""
+	},
+	"zsh-plugins": {
+		"lang": "sh",
+		"file": "",
+		"code": "brew install powerlevel10k zsh-autosuggestions zsh-syntax-highlighting"
+	},
+	"zshrc": {
+		"lang": "sh",
+		"file": "~/.zshrc",
+		"code": "[ -e ~/.zshrc ] && mv ~/.zshrc ~/.zshrc.bak.$(date +%Y%m%d-%H%M%S)\n\ncat > ~/.zshrc <<'EOF'\n# SDKMAN: Java, Kotlin, Gradle, Maven\nexport SDKMAN_DIR=\"$HOME/.sdkman\"\n[[ -s \"$SDKMAN_DIR/bin/sdkman-init.sh\" ]] && source \"$SDKMAN_DIR/bin/sdkman-init.sh\"\n\n# Prompt\nsource \"$HOMEBREW_PREFIX/share/powerlevel10k/powerlevel10k.zsh-theme\"\n[[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh\n\n# User-installed CLIs: pipx, Claude Code, and friends\nexport PATH=\"$HOME/.local/bin:$PATH\"\n\n# History, shared across every open shell\nHISTFILE=$HOME/.zhistory\nSAVEHIST=10000\nHISTSIZE=10000\nsetopt share_history hist_expire_dups_first hist_ignore_dups hist_verify\n\n# Up and Down search history for what you have already typed\nbindkey '^[[A' history-search-backward\nbindkey '^[[B' history-search-forward\n\n# Language managers. Each line waits quietly until step 9.\ncommand -v fnm >/dev/null && eval \"$(fnm env --use-on-cd)\"\ncommand -v pyenv >/dev/null && eval \"$(pyenv init -)\"\nif [[ -f \"$HOMEBREW_PREFIX/opt/chruby/share/chruby/chruby.sh\" ]]; then\n  source \"$HOMEBREW_PREFIX/opt/chruby/share/chruby/chruby.sh\"\n  source \"$HOMEBREW_PREFIX/opt/chruby/share/chruby/auto.sh\"\n  [[ -d ~/.rubies ]] && chruby ruby-3.4\nfi\n\n# Plugins. Order matters: syntax highlighting must load last.\nsource \"$HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh\"\nsource \"$HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh\"\n\nexport CLICOLOR=1\nEOF\n\nexec zsh -l"
+	},
+	"ssh-key": {
+		"lang": "sh",
+		"file": "",
+		"code": "ssh-keygen -t ed25519 -C \"you@example.com (macbook 2026-11)\"\nssh-add --apple-use-keychain ~/.ssh/id_ed25519\n\ncat >> ~/.ssh/config <<'EOF'\nHost *\n  AddKeysToAgent yes\n  UseKeychain yes\n  IdentityFile ~/.ssh/id_ed25519\nEOF\nchmod 600 ~/.ssh/config\n\npbcopy < ~/.ssh/id_ed25519.pub"
+	},
+	"ssh-test": {
+		"lang": "sh",
+		"file": "",
+		"code": "ssh -T git@github.com"
+	},
+	"git-config": {
+		"lang": "sh",
+		"file": "",
+		"code": "git config --global user.name  \"Your Name\"\ngit config --global user.email \"you@example.com\"\ngit config --global init.defaultBranch main\ngit config --global pull.rebase true\ngit config --global http.postBuffer 157286400\ngit config --global core.excludesfile ~/.gitignore_global\nprintf '.DS_Store\\n.env\\n*.swp\\n' > ~/.gitignore_global"
+	},
+	"nvim-packages": {
+		"lang": "sh",
+		"file": "",
+		"code": "brew install neovim tree-sitter-cli ripgrep git-lfs llvm\ngit lfs install"
+	},
+	"nvim-check": {
+		"lang": "sh",
+		"file": "",
+		"code": "nvim --version | head -1\ntree-sitter --version\nrg --version | head -1\ngit lfs version\n\"$(brew --prefix llvm)/bin/llvm-config\" --version"
+	},
+	"nvchad-clone": {
+		"lang": "sh",
+		"file": "",
+		"code": "for d in ~/.config/nvim ~/.local/share/nvim \\\n  ~/.local/state/nvim ~/.cache/nvim; do\n  [ -e \"$d\" ] && mv \"$d\" \"$d.bak\"\ndone\n\ngit clone https://github.com/NvChad/starter ~/.config/nvim && nvim"
+	},
+	"nvchad-commands": {
+		"lang": "vim",
+		"file": "",
+		"code": ":MasonInstallAll\n:TSInstallAll\n:Lazy sync\n:qa"
+	},
+	"nvchad-detach": {
+		"lang": "sh",
+		"file": "",
+		"code": "rm -rf ~/.config/nvim/.git"
+	},
+	"herdr-install": {
+		"lang": "sh",
+		"file": "",
+		"code": "brew install herdr\ncurl -fsSL https://claude.ai/install.sh | bash"
+	},
+	"herdr-connect": {
+		"lang": "sh",
+		"file": "",
+		"code": "claude --version\nclaude doctor\nherdr integration install claude\nherdr integration status"
+	},
+	"node": {
+		"lang": "sh",
+		"file": "",
+		"code": "brew install fnm\nexec zsh -l\nfnm install --lts\nfnm default lts-latest\nfnm use default\nnode --version"
+	},
+	"python": {
+		"lang": "sh",
+		"file": "",
+		"code": "brew install pyenv pipx\nbrew install openssl@3 readline sqlite3 xz tcl-tk@8 libb2 zstd zlib pkgconfig\npipx ensurepath\nexec zsh -l\npyenv install 3.12\npyenv global \"$(pyenv latest 3.12)\"\npipx install poetry ruff ipython httpie\npython --version"
+	},
+	"ruby": {
+		"lang": "sh",
+		"file": "",
+		"code": "brew install chruby ruby-install\nruby-install ruby 3.4\nexec zsh -l\nruby -v\nwhich ruby"
+	},
+	"java": {
+		"lang": "sh",
+		"file": "",
+		"code": "curl -s \"https://get.sdkman.io\" | bash\nexec zsh -l\nsdk install java \"$(sdk list java | grep -Eo '21\\.[0-9.+]+-tem' | head -1)\"\nsdk install gradle\nsdk install maven\nsdk install kotlin"
+	},
+	"rust-go": {
+		"lang": "sh",
+		"file": "",
+		"code": "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh\nsource \"$HOME/.cargo/env\"\nrustc --version\n\nbrew install go\ngo version"
+	},
+	"flutter": {
+		"lang": "sh",
+		"file": "",
+		"code": "brew install --cask flutter\nflutter doctor"
+	},
+	"vscode-install": {
+		"lang": "sh",
+		"file": "",
+		"code": "brew install --cask visual-studio-code"
+	},
+	"vscode-extensions": {
+		"lang": "sh",
+		"file": "",
+		"code": "# On the old Mac\ncode --list-extensions > extensions.txt\n\n# On the new Mac\nxargs -n 1 code --install-extension < extensions.txt"
+	},
+	"vscode-settings": {
+		"lang": "json",
+		"file": "settings.json",
+		"code": "{\n  \"editor.rulers\": [120],\n  \"editor.minimap.enabled\": false,\n  \"files.trimTrailingWhitespace\": true,\n  \"files.insertFinalNewline\": true,\n  \"explorer.compactFolders\": false\n}"
+	},
+	"jetbrains": {
+		"lang": "sh",
+		"file": "",
+		"code": "brew install --cask jetbrains-toolbox"
+	},
+	"xcode": {
+		"lang": "sh",
+		"file": "",
+		"code": "sudo xcode-select -s /Applications/Xcode.app\nsudo xcodebuild -license accept\nxcodebuild -downloadPlatform iOS"
+	},
+	"macos-defaults": {
+		"lang": "sh",
+		"file": "",
+		"code": "osascript -e 'tell application \"System Settings\" to quit'\n\n# Keyboard: fast repeat, and no autocorrect mangling your code\ndefaults write NSGlobalDomain InitialKeyRepeat -int 15\ndefaults write NSGlobalDomain KeyRepeat -int 2\ndefaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false\ndefaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool false\ndefaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false\ndefaults write NSGlobalDomain NSAutomaticPeriodSubstitutionEnabled -bool false\ndefaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false\ndefaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false\n\n# Finder: show the truth\ndefaults write NSGlobalDomain AppleShowAllExtensions -bool true\ndefaults write com.apple.finder AppleShowAllFiles -bool true\ndefaults write com.apple.finder ShowPathbar -bool true\ndefaults write com.apple.finder ShowStatusBar -bool true\ndefaults write com.apple.finder _FXShowPosixPathInTitle -bool true\ndefaults write com.apple.finder NewWindowTarget -string \"PfHm\"\ndefaults write com.apple.finder NewWindowTargetPath -string \"file://${HOME}/\"\ndefaults write com.apple.finder FXDefaultSearchScope -string \"SCcf\"\ndefaults write com.apple.finder FXEnableExtensionChangeWarning -bool false\n\n# No .DS_Store litter on network or USB drives\ndefaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true\ndefaults write com.apple.desktopservices DSDontWriteUSBStores -bool true\n\n# Screenshots: their own folder, PNG, no window shadow\nmkdir -p \"${HOME}/Pictures/Screenshots\"\ndefaults write com.apple.screencapture location -string \"${HOME}/Pictures/Screenshots\"\ndefaults write com.apple.screencapture type -string \"png\"\ndefaults write com.apple.screencapture disable-shadow -bool true\n\n# Spaces stay where you put them, and Mission Control hurries up\ndefaults write com.apple.dock mru-spaces -bool false\ndefaults write com.apple.dock expose-animation-duration -float 0.12\n\nkillall Finder Dock SystemUIServer"
+	},
+	"gpg-key": {
+		"lang": "sh",
+		"file": "",
+		"code": "brew install gnupg git-crypt\ngpg --full-generate-key\ngpg --list-secret-keys --keyid-format=long"
+	},
+	"dotfiles-repo": {
+		"lang": "sh",
+		"file": "",
+		"code": "KEY=ABCDEF1234567890   # your long key ID\n\nmkdir -p ~/macos-env-setup/dotfiles ~/macos-env-setup/secrets\ncd ~/macos-env-setup\ngit init\ngit-crypt init\n\nprintf 'secrets/** filter=git-crypt diff=git-crypt\\n' > .gitattributes\ngit add .gitattributes\ngit commit -m \"Encrypt everything under secrets/\"\ngit-crypt add-gpg-user \"$KEY\"\n\ncp ~/.zshrc ~/.zprofile ~/.p10k.zsh ~/.wezterm.lua ~/.gitconfig dotfiles/\ncp ~/.netrc ~/.npmrc secrets/ 2>/dev/null\ngit add dotfiles secrets\ngit-crypt status"
+	},
+	"dotfiles-push": {
+		"lang": "sh",
+		"file": "",
+		"code": "git commit -m \"Add dotfiles and encrypted secrets\"\ngit remote add origin git@github.com:you/macos-env-setup.git\ngit push -u origin main"
+	},
+	"gpg-backup": {
+		"lang": "sh",
+		"file": "",
+		"code": "gpg --export-secret-keys --armor \"$KEY\" > ~/Desktop/gpg-key.asc\n# Save that file to your password manager, then:\nrm ~/Desktop/gpg-key.asc"
+	},
+	"next-mac": {
+		"lang": "sh",
+		"file": "",
+		"code": "brew install gnupg git-crypt\ngpg --import ~/path/to/gpg-key.asc\n\ngit clone git@github.com:you/macos-env-setup.git ~/macos-env-setup\ncd ~/macos-env-setup\ngit-crypt unlock\n\ncp secrets/.netrc ~/.netrc && chmod 600 ~/.netrc\ncp secrets/.npmrc ~/.npmrc && chmod 600 ~/.npmrc"
+	},
+	"apps": {
+		"lang": "sh",
+		"file": "",
+		"code": "brew install --cask google-chrome firefox              # 1\nbrew install --cask nordpass                           # 2, or 1password\nbrew install --cask docker-desktop                     # 3\nbrew install --cask tableplus postgres-app pgadmin4    # 4\nbrew install --cask postman insomnia tailscale-app     # 5"
+	},
+	"health-check": {
+		"lang": "sh",
+		"file": "",
+		"code": "for tool in brew nvim rg tree-sitter herdr claude fnm pyenv \\\n  pipx chruby sdk rustc go gpg git-crypt; do\n  if command -v \"$tool\" >/dev/null; then\n    print -P \"%F{green}✓%f $tool\"\n  else\n    print -P \"%F{red}✗%f $tool\"\n  fi\ndone"
+	},
+	"weekly-update": {
+		"lang": "sh",
+		"file": "",
+		"code": "brew update && brew upgrade && brew cleanup\nrustup update"
+	},
+	"inventory": {
+		"lang": "sh",
+		"file": "",
+		"code": "cd ~/macos-env-setup\nbrew leaves > brew-formulae.txt\nbrew list --cask > brew-casks.txt"
+	}
+}
