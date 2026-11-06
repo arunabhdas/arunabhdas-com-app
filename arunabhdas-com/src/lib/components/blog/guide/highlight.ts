@@ -1,5 +1,5 @@
 /**
- * A small highlighter for the guides' shell, Lua, JSON, Vim, and Swift snippets.
+ * A small highlighter for the guides' shell, Lua, JSON, Vim, Swift, and TypeScript snippets.
  * Every string is escaped here, so the result is safe to render with {@html}.
  */
 const TOKEN =
@@ -84,18 +84,32 @@ function highlightSwift(code: string) {
 }
 
 function highlightSwiftLine(line: string) {
+	return highlightWith(line, SWIFT_TOKEN, SWIFT_CLASS);
+}
+
+function highlightWith(line: string, tokens: RegExp, classes: Record<string, string>) {
 	let html = '';
 	let index = 0;
-	for (const match of line.matchAll(SWIFT_TOKEN)) {
-		const group = Object.keys(SWIFT_CLASS).find((name) => match.groups?.[name] !== undefined)!;
-		html += escapeHtml(line.slice(index, match.index)) + span(SWIFT_CLASS[group], match[0]);
+	for (const match of line.matchAll(tokens)) {
+		const group = Object.keys(classes).find((name) => match.groups?.[name] !== undefined)!;
+		html += escapeHtml(line.slice(index, match.index)) + span(classes[group], match[0]);
 		index = match.index + match[0].length;
 	}
 	return html + escapeHtml(line.slice(index));
 }
 
+const TS_TOKEN =
+	/(?<c>\/\/.*$|\/\*.*?\*\/)|(?<s>"(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*'|`(?:[^`\\]|\\.)*`)|(?<r>(?<=[(=:,[!&|?]\s?)\/(?![/*\s])(?:[^/\\\n]|\\.)+\/[gimsuy]*)|(?<k>\b(?:as|async|await|break|case|catch|class|const|continue|default|else|export|extends|false|finally|for|from|function|if|import|in|new|null|of|private|return|static|switch|this|throw|true|try|type|typeof|undefined|void|while)\b)|(?<v>\b[A-Z][A-Za-z0-9]*\b)/g;
+const TS_CLASS: Record<string, string> = { c: 't-c', s: 't-s', r: 't-s', k: 't-k', v: 't-v' };
+
 export function highlight(code: string, lang: string) {
 	if (lang === 'swift') return highlightSwift(code);
+	if (lang === 'ts') {
+		return code
+			.split('\n')
+			.map((line) => highlightWith(line, TS_TOKEN, TS_CLASS))
+			.join('\n');
+	}
 
 	const marker = code.slice(0, 60).includes('wezterm') ? '--' : '#';
 	let heredoc: string | null = null;

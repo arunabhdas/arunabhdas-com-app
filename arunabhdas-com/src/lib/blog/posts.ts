@@ -18,6 +18,17 @@ export type BlogPost = {
 
 const allPosts: BlogPost[] = [
 	{
+		slug: 'how-to-build-an-open-harness-for-agentic-engineering',
+		title: 'How to Build an Open Harness for Agentic Engineering',
+		description:
+			'Fifteen steps from stock Pi to OpenHarness, a package that will not let an agent finish until the checks pass and a second agent signs off.',
+		date: '2026-11-05',
+		readingMinutes: 30,
+		tags: ['Agentic Engineering', 'Pi', 'OhMyPi', 'TypeScript', 'AI Agents'],
+		cover: '/blog/covers/how-to-build-an-open-harness-for-agentic-engineering.jpg',
+		coverAlt: 'A roped climbing route with lit anchors up a mountain face at night, with the post title.'
+	},
+	{
 		slug: 'agentic-ai-without-the-token-tax',
 		title: 'Agentic AI Without the Token Tax: Building a Deterministic, On-Device Action Engine',
 		description:

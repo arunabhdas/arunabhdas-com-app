@@ -4,7 +4,8 @@
 /* Whole files need more room than prose does. */
 .action-engine .step{max-width:880px}
 .action-engine .step>p,.action-engine .step>.note,.action-engine .step>h4{max-width:680px}
-.action-engine .step>.side-note{max-width:none}
+/* The wider steps leave no margin to float into, so notes stay in the column. */
+.action-engine .step>.side-note{float:none;clear:none;width:auto;max-width:680px;margin:1em 0;padding:0 0 0 .9em;border-left:2px solid var(--leg);font-size:1.0313rem;line-height:1.42}
 .action-engine .col{max-width:none}
 .action-engine .code pre{max-height:min(74vh,720px);overflow:auto}
 .action-engine .plate.wide{width:100%;max-width:880px}
