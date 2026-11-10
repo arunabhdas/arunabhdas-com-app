@@ -114,6 +114,21 @@
 		"file": "",
 		"code": "brew install chruby ruby-install\nruby-install ruby 3.4\nexec zsh -l\nruby -v\nwhich ruby"
 	},
+	"cocoapods-chruby": {
+		"lang": "sh",
+		"file": "~/.zshrc",
+		"code": "source /opt/homebrew/opt/chruby/share/chruby/chruby.sh\nsource /opt/homebrew/opt/chruby/share/chruby/auto.sh"
+	},
+	"cocoapods-ruby": {
+		"lang": "sh",
+		"file": "",
+		"code": "brew update\nruby-install ruby 3.4.4\nexec zsh -l\nchruby ruby-3.4.4\nruby -v"
+	},
+	"cocoapods-install": {
+		"lang": "sh",
+		"file": "",
+		"code": "gem install cocoapods\ncd path/to/your-ios-project   # the folder with the Podfile\npod install"
+	},
 	"java": {
 		"lang": "sh",
 		"file": "",

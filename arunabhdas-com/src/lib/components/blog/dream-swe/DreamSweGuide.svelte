@@ -378,6 +378,14 @@
 			<h4>Ruby</h4>
 			<CodeBlock id="ruby" />
 			<p class="note ok"><b>You should see</b> a path under <code>~/.rubies</code>, not <code>/usr/bin/ruby</code>. That older system Ruby belongs to Apple, so leave it alone.</p>
+			<h4>Ruby and CocoaPods</h4>
+			<p>iOS projects that use CocoaPods need a Ruby of your own, because installing gems into Apple's system Ruby needs <code>sudo</code> and breaks on macOS updates. Install Xcode 16.3 or a later stable 16.x release first (not a beta). The <code>~/.zshrc</code> from step 5 already loads chruby. If you use your own <code>~/.zshrc</code> instead, add these two lines and run <code>source ~/.zshrc</code>:</p>
+			<CodeBlock id="cocoapods-chruby" />
+			<p>Then install and switch to the exact Ruby the project expects:</p>
+			<CodeBlock id="cocoapods-ruby" />
+			<p class="note ok"><b>You should see</b> <code>ruby 3.4.4 (2025-05-14 revision a38531fd3f) +PRISM [arm64-darwin24]</code>. The last part changes with your macOS version.</p>
+			<p>Install CocoaPods into that Ruby, then install the project's pods:</p>
+			<CodeBlock id="cocoapods-install" />
 			<h4>Java, Kotlin, Gradle, and Maven</h4>
 			<CodeBlock id="java" />
 			<h4>Rust and Go</h4>
