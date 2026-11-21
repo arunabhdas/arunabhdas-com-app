@@ -1,0 +1,91 @@
+{
+	"screens-check": {
+		"lang": "sh",
+		"file": "",
+		"code": "osascript -l JavaScript -e 'ObjC.import(\"AppKit\")\n$.NSScreen.screens.js.map(s =>\n  `${s.localizedName.js}: ${s.frame.size.width} x ${s.frame.size.height} @${s.backingScaleFactor}x`\n).join(\"\\n\")'"
+	},
+	"screens-out": {
+		"lang": "text",
+		"file": "",
+		"code": "Built-in Retina Display: 2056 x 1329 @2x\nLG UltraFine: 2880 x 1620 @2x",
+		"out": true
+	},
+	"backing-check": {
+		"lang": "sh",
+		"file": "",
+		"code": "system_profiler SPDisplaysDataType | grep -E \"Resolution|UI Looks like\""
+	},
+	"backing-out": {
+		"lang": "text",
+		"file": "",
+		"code": "Resolution: 3456 x 2234 Retina\nResolution: 5760 x 3240\nUI Looks like: 2880 x 1620 @ 60.00Hz",
+		"out": true
+	},
+	"displayplacer": {
+		"lang": "sh",
+		"file": "",
+		"code": "brew install displayplacer\ndisplayplacer list"
+	},
+	"trackpad-write": {
+		"lang": "sh",
+		"file": "",
+		"code": "# Tracking speed: Fast\ndefaults write -g com.apple.trackpad.scaling -float 3\ndefaults -currentHost write -g com.apple.mouse.tapBehavior -int 1\n\n# Tap to click on, Click: Light, Look up: Off\nfor pad in com.apple.AppleMultitouchTrackpad \\\n  com.apple.driver.AppleBluetoothMultitouch.trackpad; do\n  defaults write $pad Clicking -bool true\n  defaults write $pad FirstClickThreshold -int 0\n  defaults write $pad SecondClickThreshold -int 0\n  defaults write $pad TrackpadThreeFingerTapGesture -int 0\ndone"
+	},
+	"gestures-write": {
+		"lang": "sh",
+		"file": "",
+		"code": "for pad in com.apple.AppleMultitouchTrackpad \\\n  com.apple.driver.AppleBluetoothMultitouch.trackpad; do\n  defaults write $pad TrackpadThreeFingerDrag -bool true\n  defaults write $pad TrackpadThreeFingerHorizSwipeGesture -int 0\n  defaults write $pad TrackpadThreeFingerVertSwipeGesture -int 0\n  defaults write $pad TrackpadFourFingerHorizSwipeGesture -int 2\n  defaults write $pad TrackpadFourFingerVertSwipeGesture -int 2\ndone"
+	},
+	"keys-write": {
+		"lang": "sh",
+		"file": "",
+		"code": "# 225 ms before the first repeat, then one every 15 ms\ndefaults write -g InitialKeyRepeat -int 15\ndefaults write -g KeyRepeat -int 1\ndefaults write -g ApplePressAndHoldEnabled -bool false"
+	},
+	"keys-check": {
+		"lang": "sh",
+		"file": "",
+		"code": "defaults read -g KeyRepeat\ndefaults read -g InitialKeyRepeat"
+	},
+	"keys-out": {
+		"lang": "text",
+		"file": "",
+		"code": "1\n15",
+		"out": true
+	},
+	"dock-write": {
+		"lang": "sh",
+		"file": "",
+		"code": "# Size all the way left, Magnification all the way right\ndefaults write com.apple.dock tilesize -int 16\ndefaults write com.apple.dock largesize -int 128\ndefaults write com.apple.dock magnification -bool true\nkillall Dock"
+	},
+	"stage-write": {
+		"lang": "sh",
+		"file": "",
+		"code": "# Stage Manager on, windows All at Once, recent apps in view\ndefaults write com.apple.WindowManager GloballyEnabled -bool true\ndefaults write com.apple.WindowManager AppWindowGroupingBehavior -int 1\ndefaults write com.apple.WindowManager AutoHide -bool false\n\n# Tiled windows meet edge to edge\ndefaults write com.apple.WindowManager EnableTiledWindowMargins -bool false"
+	},
+	"windows-write": {
+		"lang": "sh",
+		"file": "",
+		"code": "# Prefer tabs when opening documents: Never\ndefaults write -g AppleWindowTabbingMode -string manual"
+	},
+	"look-write": {
+		"lang": "sh",
+		"file": "",
+		"code": "defaults write -g AppleInterfaceStyle -string Dark\ndefaults write -g AppleShowScrollBars -string WhenScrolling"
+	},
+	"audit": {
+		"lang": "sh",
+		"file": "audit.zsh",
+		"code": "#!/bin/zsh\n# audit.zsh: read back every setting this guide can check. It changes nothing.\nd() { defaults read \"$@\" 2>/dev/null; }\nrow() {  # label, the guide's value, your value\n  if [[ \"$2\" == \"$3\" ]]; then\n    print -P \"%F{green}✓%f ${(r:24:)1} $3\"\n  else\n    print -P \"%F{yellow}≠%f ${(r:24:)1} ${3:-unset}, the guide has $2\"\n  fi\n}\npad=com.apple.AppleMultitouchTrackpad\nwm=com.apple.WindowManager\n\nrow \"key repeat\"           1    \"$(d -g KeyRepeat)\"\nrow \"delay until repeat\"   15   \"$(d -g InitialKeyRepeat)\"\nrow \"press and hold\"       0    \"$(d -g ApplePressAndHoldEnabled)\"\nrow \"tracking speed\"       3    \"$(d -g com.apple.trackpad.scaling)\"\nrow \"click pressure\"       0    \"$(d $pad FirstClickThreshold)\"\nrow \"tap to click\"         1    \"$(d $pad Clicking)\"\nrow \"look up\"              0    \"$(d $pad TrackpadThreeFingerTapGesture)\"\nrow \"three finger drag\"    1    \"$(d $pad TrackpadThreeFingerDrag)\"\nrow \"four finger swipe up\" 2    \"$(d $pad TrackpadFourFingerVertSwipeGesture)\"\nrow \"four finger sideways\" 2    \"$(d $pad TrackpadFourFingerHorizSwipeGesture)\"\nrow \"dock size\"            16   \"$(d com.apple.dock tilesize)\"\nrow \"dock magnified size\"  128  \"$(d com.apple.dock largesize)\"\nrow \"dock magnification\"   1    \"$(d com.apple.dock magnification)\"\nrow \"stage manager\"        1    \"$(d $wm GloballyEnabled)\"\nrow \"windows all at once\"  1    \"$(d $wm AppWindowGroupingBehavior)\"\nrow \"tiled window margins\" 0    \"$(d $wm EnableTiledWindowMargins)\"\nrow \"appearance\"           Dark \"$(d -g AppleInterfaceStyle)\"\nrow \"scroll bars\"          WhenScrolling \"$(d -g AppleShowScrollBars)\"\nrow \"tabs for documents\"   manual \"$(d -g AppleWindowTabbingMode)\"\n\nprint\nosascript -l JavaScript -e 'ObjC.import(\"AppKit\")\n$.NSScreen.screens.js.map(s =>\n  `${s.localizedName.js}: ${s.frame.size.width} x ${s.frame.size.height} @${s.backingScaleFactor}x`\n).join(\"\\n\")'"
+	},
+	"audit-out": {
+		"lang": "text",
+		"file": "",
+		"code": "✓ key repeat               1\n✓ delay until repeat       15\n✓ press and hold           0\n✓ tracking speed           3\n✓ click pressure           0\n✓ tap to click             1\n✓ look up                  0\n✓ three finger drag        1\n✓ four finger swipe up     2\n✓ four finger sideways     2\n✓ dock size                16\n✓ dock magnified size      128\n✓ dock magnification       1\n✓ stage manager            1\n✓ windows all at once      1\n✓ tiled window margins     0\n✓ appearance               Dark\n✓ scroll bars              WhenScrolling\n✓ tabs for documents       manual\n\nBuilt-in Retina Display: 2056 x 1329 @2x\nLG UltraFine: 2880 x 1620 @2x",
+		"out": true
+	},
+	"tune": {
+		"lang": "sh",
+		"file": "tune.zsh",
+		"code": "#!/bin/zsh\n# tune.zsh: write the values from this guide. Read it before you run it.\nosascript -e 'tell application \"System Settings\" to quit'\n\n# --- Keys\n# 225 ms before the first repeat, then one every 15 ms\ndefaults write -g InitialKeyRepeat -int 15\ndefaults write -g KeyRepeat -int 1\ndefaults write -g ApplePressAndHoldEnabled -bool false\n\n# --- Trackpad\n# Tracking speed: Fast\ndefaults write -g com.apple.trackpad.scaling -float 3\ndefaults -currentHost write -g com.apple.mouse.tapBehavior -int 1\n\n# Tap to click on, Click: Light, Look up: Off\nfor pad in com.apple.AppleMultitouchTrackpad \\\n  com.apple.driver.AppleBluetoothMultitouch.trackpad; do\n  defaults write $pad Clicking -bool true\n  defaults write $pad FirstClickThreshold -int 0\n  defaults write $pad SecondClickThreshold -int 0\n  defaults write $pad TrackpadThreeFingerTapGesture -int 0\ndone\n\n# Three fingers drag, four fingers switch\nfor pad in com.apple.AppleMultitouchTrackpad \\\n  com.apple.driver.AppleBluetoothMultitouch.trackpad; do\n  defaults write $pad TrackpadThreeFingerDrag -bool true\n  defaults write $pad TrackpadThreeFingerHorizSwipeGesture -int 0\n  defaults write $pad TrackpadThreeFingerVertSwipeGesture -int 0\n  defaults write $pad TrackpadFourFingerHorizSwipeGesture -int 2\n  defaults write $pad TrackpadFourFingerVertSwipeGesture -int 2\ndone\n\n# --- Dock\n# Size all the way left, Magnification all the way right\ndefaults write com.apple.dock tilesize -int 16\ndefaults write com.apple.dock largesize -int 128\ndefaults write com.apple.dock magnification -bool true\n\n# --- Windows\n# Stage Manager on, windows All at Once, recent apps in view\ndefaults write com.apple.WindowManager GloballyEnabled -bool true\ndefaults write com.apple.WindowManager AppWindowGroupingBehavior -int 1\ndefaults write com.apple.WindowManager AutoHide -bool false\n\n# Tiled windows meet edge to edge\ndefaults write com.apple.WindowManager EnableTiledWindowMargins -bool false\n\n# Prefer tabs when opening documents: Never\ndefaults write -g AppleWindowTabbingMode -string manual\n\n# --- Look\ndefaults write -g AppleInterfaceStyle -string Dark\ndefaults write -g AppleShowScrollBars -string WhenScrolling\n\nkillall Dock\nprint \"Log out and back in, then run audit.zsh.\""
+	}
+}

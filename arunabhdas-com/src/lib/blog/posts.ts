@@ -18,6 +18,17 @@ export type BlogPost = {
 
 const allPosts: BlogPost[] = [
 	{
+		slug: 'how-to-optimize-dev-env-for-maximum-dev-productivity',
+		title: 'How to Optimize Dev Env for Maximum Dev Productivity',
+		description:
+			'Fifteen stops in System Settings that give a Mac more room, a faster pointer, and fewer interruptions, with a script to check yours.',
+		date: '2026-11-20',
+		readingMinutes: 14,
+		tags: ['macOS', 'Productivity', 'Displays', 'Trackpad', 'System Settings'],
+		cover: '/blog/covers/how-to-optimize-dev-env-for-maximum-dev-productivity.jpg',
+		coverAlt: 'A canoe with a green lantern crossing a still mountain lake at night, with the post title.'
+	},
+	{
 		slug: 'how-to-build-an-open-harness-for-agentic-engineering',
 		title: 'How to Build an Open Harness for Agentic Engineering',
 		description:
