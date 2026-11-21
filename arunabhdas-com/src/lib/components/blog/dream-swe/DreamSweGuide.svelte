@@ -330,9 +330,9 @@
 		</Step>
 
 		<Step n={8} slug="agents" leg="purple" seg="agents" title="Install Claude Code, Codex, and Pi">
-			<p>Three coding agents, each living in the terminal you just built. Every one of them leads its own documentation with a one-line installer, so that is what this step uses. Each heading below links to the official instructions. If a command here ever disagrees with them, they win.</p>
+			<p>Three coding agents, each living in the terminal you just built. Every one of them leads its own documentation with a one-line installer, so that comes first under each heading, with the Homebrew way right below it. Pick one of the two for each agent, not both. The links go to the official instructions. If a command here ever disagrees with them, they win.</p>
 			<table class="need">
-				<thead><tr><th>Agent</th><th>First run</th><th>Updates</th></tr></thead>
+				<thead><tr><th>Agent</th><th>First run</th><th>Installer updates</th></tr></thead>
 				<tbody>
 					<tr><td>Claude Code<br><code>claude</code></td><td>Signs in through the browser. Needs a paid Claude plan or a Console account</td><td>On its own, in the background</td></tr>
 					<tr><td>Codex<br><code>codex</code></td><td>Choose <b>Sign in with ChatGPT</b></td><td>Run the installer again</td></tr>
@@ -342,18 +342,24 @@
 			<h4>Claude Code</h4>
 			<p>Anthropic's agent. Official instructions: <a href="https://code.claude.com/docs/en/setup">Set up Claude Code</a>.</p>
 			<CodeBlock id="agent-claude" />
+			<p>Or with Homebrew. The cask follows the stable channel, which runs about a week behind.</p>
+			<CodeBlock id="agent-claude-brew" />
 			<h4>Codex</h4>
 			<p>OpenAI's agent. Official instructions: <a href="https://learn.chatgpt.com/docs/codex/cli">Codex CLI</a>.</p>
 			<CodeBlock id="agent-codex" />
+			<p>Or with Homebrew:</p>
+			<CodeBlock id="agent-codex-brew" />
 			<h4>Pi</h4>
 			<p>A small, open agent harness from Earendil that works with whichever model provider you already pay for. Official instructions: <a href="https://docs.pi.dev/latest/quickstart">Pi Quickstart</a>.</p>
 			<CodeBlock id="agent-pi" />
 			<p class="side-note"><b>Pi runs on Node.</b> It wants 22.19 or newer, and its installer can fetch that for you. Your own Node arrives in step 10.</p>
+			<p>Or with Homebrew. Pi's own docs do not list this one. The formula is kept by Homebrew, and it brings Homebrew's <code>node</code> along to run Pi, a small bend of rule three. After step 10, the <code>node</code> your shell finds first is still the one from fnm.</p>
+			<CodeBlock id="agent-pi-brew" />
 			<p>Open a new terminal window so all three are on your <code>PATH</code>, then check them.</p>
 			<CodeBlock id="agents-check" />
 			<p class="note ok"><b>You should see</b> three version numbers, then Claude Code's report on its own install.</p>
 			<p>Sign in to each one once. Move into any project folder and start them one at a time, following the table above.</p>
-			<p class="note"><b>Prefer Homebrew?</b> Claude Code and Codex also ship as official casks, <code>claude-code</code> and <code>codex</code>. Install either with <code>brew install --cask</code>. Those wait for <code>brew upgrade</code> instead of updating themselves. Pi's docs offer npm and Nix as the alternatives.</p>
+			<p class="note"><b>Went with Homebrew?</b> Then the last column of the table does not apply. All three wait for <code>brew upgrade</code>, which the weekly command at the end of this guide already runs.</p>
 		</Step>
 
 		<Step n={9} slug="herdr" leg="purple" seg="herd" title="Run a herd of agents with Herdr">

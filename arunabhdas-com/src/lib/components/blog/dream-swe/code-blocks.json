@@ -94,15 +94,30 @@
 		"file": "",
 		"code": "curl -fsSL https://claude.ai/install.sh | bash"
 	},
+	"agent-claude-brew": {
+		"lang": "sh",
+		"file": "",
+		"code": "brew install --cask claude-code"
+	},
 	"agent-codex": {
 		"lang": "sh",
 		"file": "",
 		"code": "curl -fsSL https://chatgpt.com/codex/install.sh | sh"
 	},
+	"agent-codex-brew": {
+		"lang": "sh",
+		"file": "",
+		"code": "brew install --cask codex"
+	},
 	"agent-pi": {
 		"lang": "sh",
 		"file": "",
 		"code": "curl -fsSL https://pi.dev/install.sh | sh"
+	},
+	"agent-pi-brew": {
+		"lang": "sh",
+		"file": "",
+		"code": "brew install pi-coding-agent"
 	},
 	"agents-check": {
 		"lang": "sh",
