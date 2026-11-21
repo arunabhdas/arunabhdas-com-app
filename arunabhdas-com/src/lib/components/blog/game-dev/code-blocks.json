@@ -1,0 +1,92 @@
+{
+	"mac-check": {
+		"lang": "sh",
+		"file": "",
+		"code": "uname -m                               # arm64 means Apple Silicon\nsysctl -n machdep.cpu.brand_string     # which chip\necho $(( $(sysctl -n hw.memsize) / 1073741824 )) GB memory\nsw_vers -productVersion                # macOS\ndf -g /System/Volumes/Data | awk 'NR==2 {print $4 \" GB free\"}'"
+	},
+	"mac-out": {
+		"lang": "text",
+		"file": "",
+		"code": "arm64\nApple M5 Max\n36 GB memory\n26.7\n6047 GB free",
+		"out": true
+	},
+	"xcode-which": {
+		"lang": "sh",
+		"file": "",
+		"code": "xcodebuild -version"
+	},
+	"xcode-which-out": {
+		"lang": "text",
+		"file": "",
+		"code": "Xcode 27.0\nBuild version 27A266a",
+		"out": true
+	},
+	"engine-check": {
+		"lang": "sh",
+		"file": "",
+		"code": "ls \"/Users/Shared/Epic Games\""
+	},
+	"xcode-move": {
+		"lang": "sh",
+		"file": "",
+		"code": "mkdir -p ~/Developer/Xcode/Xcode_26_1_1\nmv ~/Downloads/Xcode.app ~/Developer/Xcode/Xcode_26_1_1/Xcode_26_1_1.app"
+	},
+	"xcode-env": {
+		"lang": "sh",
+		"file": "",
+		"code": "# this terminal only, and whatever it starts\nexport DEVELOPER_DIR=~/Developer/Xcode/Xcode_26_1_1/Xcode_26_1_1.app/Contents/Developer"
+	},
+	"xcode-system": {
+		"lang": "sh",
+		"file": "",
+		"code": "# the whole Mac, until you run it again with another path\nsudo xcode-select -s ~/Developer/Xcode/Xcode_26_1_1/Xcode_26_1_1.app/Contents/Developer"
+	},
+	"xcode-first": {
+		"lang": "sh",
+		"file": "",
+		"code": "sudo \"$DEVELOPER_DIR/usr/bin/xcodebuild\" -runFirstLaunch\nxcodebuild -version"
+	},
+	"metal-get": {
+		"lang": "sh",
+		"file": "",
+		"code": "xcodebuild -downloadComponent MetalToolchain"
+	},
+	"metal-check": {
+		"lang": "sh",
+		"file": "",
+		"code": "xcrun -sdk macosx metal -v"
+	},
+	"metal-missing": {
+		"lang": "text",
+		"file": "",
+		"code": "error: error: cannot execute tool 'metal' due to missing Metal Toolchain; use: xcodebuild -downloadComponent MetalToolchain",
+		"out": true
+	},
+	"metal-ok": {
+		"lang": "text",
+		"file": "",
+		"code": "Apple metal version 32023.883 (metalfe-32023.883)\nTarget: air64-apple-darwin25.6.0\nThread model: posix",
+		"out": true
+	},
+	"editor-run": {
+		"lang": "sh",
+		"file": "",
+		"code": "\"/Users/Shared/Epic Games/UE_5.8/Engine/Binaries/Mac/UnrealEditor.app/Contents/MacOS/UnrealEditor\""
+	},
+	"trouble-args": {
+		"lang": "sh",
+		"file": "",
+		"code": "# reported for the crash at launch on macOS 26.5 and later\n\"/Users/Shared/Epic Games/UE_5.8/Engine/Binaries/Mac/UnrealEditor.app/Contents/MacOS/UnrealEditor\" -BindlessOff\n\n# reported for a start that stalls at a low percentage\n\"/Users/Shared/Epic Games/UE_5.8/Engine/Binaries/Mac/UnrealEditor.app/Contents/MacOS/UnrealEditor\" -DisableAllPlugins"
+	},
+	"preflight": {
+		"lang": "sh",
+		"file": "preflight.zsh",
+		"code": "#!/bin/zsh\n# preflight.zsh: read what Unreal Engine 5.8 needs from this Mac. It changes nothing.\nautoload -Uz is-at-least\nengine=\"/Users/Shared/Epic Games/UE_5.8\"\ntypeset -A tone=(✓ green ! yellow ✗ red)\nrow() {  # mark, label, what was found\n  print -P \"%F{${tone[$1]}}$1%f ${(r:16:)2} $3\"\n}\n\nchip=$(sysctl -n machdep.cpu.brand_string)\nif [[ $(uname -m) == arm64 ]]; then row ✓ chip \"$chip\"\nelse row ✗ chip \"$chip, Epic's minimum is an M1\"; fi\n\nram=$(( $(sysctl -n hw.memsize) / 1073741824 ))\nif   (( ram >= 32 )); then row ✓ memory \"$ram GB\"\nelif (( ram >= 16 )); then row ! memory \"$ram GB, Epic recommends 32\"\nelse row ✗ memory \"$ram GB, Epic's minimum is 16\"; fi\n\nos=$(sw_vers -productVersion)\nif   ! is-at-least 14.5 $os; then row ✗ macOS \"$os, Epic's minimum is 14.5\"\nelif is-at-least 16 $os;     then row ! macOS \"$os, newer than the macOS 15 Epic lists\"\nelse row ✓ macOS \"$os\"; fi\n\nfree=$(df -g /System/Volumes/Data | awk 'NR==2 {print $4}')\nif (( free >= 100 )); then row ✓ \"free disk\" \"$free GB\"\nelse row ! \"free disk\" \"$free GB, I would want 100\"; fi\n\nif [[ -d $engine ]]; then row ✓ engine \"$engine\"\nelse row ✗ engine \"nothing at $engine\"; fi\n\nxc=$(xcodebuild -version 2>/dev/null | awk 'NR==1 {print $2}')\nif   [[ -z $xc ]];           then row ✗ Xcode \"no full Xcode is selected\"\nelif ! is-at-least 26.0 $xc; then row ✗ Xcode \"$xc, Epic's minimum is 26.0\"\nelif [[ $xc == 26.4* ]];     then row ✗ Xcode \"$xc, which Epic says is not compatible\"\nelif is-at-least 26.2 $xc;   then row ! Xcode \"$xc, newer than the 26.1.1 Epic recommends\"\nelse row ✓ Xcode \"$xc\"; fi\n\nif metal=$(xcrun -sdk macosx metal -v 2>&1); then row ✓ \"Metal toolchain\" \"${${(f)metal}[1]}\"\nelse row ✗ \"Metal toolchain\" \"missing for this Xcode\"; fi"
+	},
+	"preflight-out": {
+		"lang": "text",
+		"file": "",
+		"code": "✓ chip             Apple M5 Max\n✓ memory           36 GB\n! macOS            26.7, newer than the macOS 15 Epic lists\n✓ free disk        6047 GB\n✗ engine           nothing at /Users/Shared/Epic Games/UE_5.8\n! Xcode            27.0, newer than the 26.1.1 Epic recommends\n✗ Metal toolchain  missing for this Xcode",
+		"out": true
+	}
+}

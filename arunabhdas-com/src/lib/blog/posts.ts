@@ -18,6 +18,17 @@ export type BlogPost = {
 
 const allPosts: BlogPost[] = [
 	{
+		slug: 'how-to-setup-game-dev-environment-on-mac',
+		title: 'How to Setup Game Dev Environment on Mac',
+		description:
+			'Ten steps to Unreal Engine 5.8 on a Mac: the launcher, the engine, the Xcode it expects, and the Metal toolchain, with a script to check the result.',
+		date: '2026-11-21',
+		readingMinutes: 10,
+		tags: ['Unreal Engine', 'Game Dev', 'macOS', 'Xcode', 'Metal'],
+		cover: '/blog/covers/how-to-setup-game-dev-environment-on-mac.jpg',
+		coverAlt: 'A rocket on a launch pad at night with a green beacon on its tower, with the post title.'
+	},
+	{
 		slug: 'how-to-optimize-dev-env-for-maximum-dev-productivity',
 		title: 'How to Optimize Dev Env for Maximum Dev Productivity',
 		description:
