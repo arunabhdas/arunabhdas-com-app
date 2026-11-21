@@ -47,7 +47,7 @@
 	"zshrc": {
 		"lang": "sh",
 		"file": "~/.zshrc",
-		"code": "[ -e ~/.zshrc ] && mv ~/.zshrc ~/.zshrc.bak.$(date +%Y%m%d-%H%M%S)\n\ncat > ~/.zshrc <<'EOF'\n# SDKMAN: Java, Kotlin, Gradle, Maven\nexport SDKMAN_DIR=\"$HOME/.sdkman\"\n[[ -s \"$SDKMAN_DIR/bin/sdkman-init.sh\" ]] && source \"$SDKMAN_DIR/bin/sdkman-init.sh\"\n\n# Prompt\nsource \"$HOMEBREW_PREFIX/share/powerlevel10k/powerlevel10k.zsh-theme\"\n[[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh\n\n# User-installed CLIs: pipx, Claude Code, and friends\nexport PATH=\"$HOME/.local/bin:$PATH\"\n\n# History, shared across every open shell\nHISTFILE=$HOME/.zhistory\nSAVEHIST=10000\nHISTSIZE=10000\nsetopt share_history hist_expire_dups_first hist_ignore_dups hist_verify\n\n# Up and Down search history for what you have already typed\nbindkey '^[[A' history-search-backward\nbindkey '^[[B' history-search-forward\n\n# Language managers. Each line waits quietly until step 9.\ncommand -v fnm >/dev/null && eval \"$(fnm env --use-on-cd)\"\ncommand -v pyenv >/dev/null && eval \"$(pyenv init -)\"\nif [[ -f \"$HOMEBREW_PREFIX/opt/chruby/share/chruby/chruby.sh\" ]]; then\n  source \"$HOMEBREW_PREFIX/opt/chruby/share/chruby/chruby.sh\"\n  source \"$HOMEBREW_PREFIX/opt/chruby/share/chruby/auto.sh\"\n  [[ -d ~/.rubies ]] && chruby ruby-3.4\nfi\n\n# Plugins. Order matters: syntax highlighting must load last.\nsource \"$HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh\"\nsource \"$HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh\"\n\nexport CLICOLOR=1\nEOF\n\nexec zsh -l"
+		"code": "[ -e ~/.zshrc ] && mv ~/.zshrc ~/.zshrc.bak.$(date +%Y%m%d-%H%M%S)\n\ncat > ~/.zshrc <<'EOF'\n# SDKMAN: Java, Kotlin, Gradle, Maven\nexport SDKMAN_DIR=\"$HOME/.sdkman\"\n[[ -s \"$SDKMAN_DIR/bin/sdkman-init.sh\" ]] && source \"$SDKMAN_DIR/bin/sdkman-init.sh\"\n\n# Prompt\nsource \"$HOMEBREW_PREFIX/share/powerlevel10k/powerlevel10k.zsh-theme\"\n[[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh\n\n# User-installed CLIs: pipx, Claude Code, and friends\nexport PATH=\"$HOME/.local/bin:$PATH\"\n\n# History, shared across every open shell\nHISTFILE=$HOME/.zhistory\nSAVEHIST=10000\nHISTSIZE=10000\nsetopt share_history hist_expire_dups_first hist_ignore_dups hist_verify\n\n# Up and Down search history for what you have already typed\nbindkey '^[[A' history-search-backward\nbindkey '^[[B' history-search-forward\n\n# Language managers. Each line waits quietly until step 10.\ncommand -v fnm >/dev/null && eval \"$(fnm env --use-on-cd)\"\ncommand -v pyenv >/dev/null && eval \"$(pyenv init -)\"\nif [[ -f \"$HOMEBREW_PREFIX/opt/chruby/share/chruby/chruby.sh\" ]]; then\n  source \"$HOMEBREW_PREFIX/opt/chruby/share/chruby/chruby.sh\"\n  source \"$HOMEBREW_PREFIX/opt/chruby/share/chruby/auto.sh\"\n  [[ -d ~/.rubies ]] && chruby ruby-3.4\nfi\n\n# Plugins. Order matters: syntax highlighting must load last.\nsource \"$HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh\"\nsource \"$HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh\"\n\nexport CLICOLOR=1\nEOF\n\nexec zsh -l"
 	},
 	"ssh-key": {
 		"lang": "sh",
@@ -89,15 +89,35 @@
 		"file": "",
 		"code": "rm -rf ~/.config/nvim/.git"
 	},
+	"agent-claude": {
+		"lang": "sh",
+		"file": "",
+		"code": "curl -fsSL https://claude.ai/install.sh | bash"
+	},
+	"agent-codex": {
+		"lang": "sh",
+		"file": "",
+		"code": "curl -fsSL https://chatgpt.com/codex/install.sh | sh"
+	},
+	"agent-pi": {
+		"lang": "sh",
+		"file": "",
+		"code": "curl -fsSL https://pi.dev/install.sh | sh"
+	},
+	"agents-check": {
+		"lang": "sh",
+		"file": "",
+		"code": "claude --version\ncodex --version\npi --version\nclaude doctor"
+	},
 	"herdr-install": {
 		"lang": "sh",
 		"file": "",
-		"code": "brew install herdr\ncurl -fsSL https://claude.ai/install.sh | bash"
+		"code": "brew install herdr"
 	},
 	"herdr-connect": {
 		"lang": "sh",
 		"file": "",
-		"code": "claude --version\nclaude doctor\nherdr integration install claude\nherdr integration status"
+		"code": "herdr integration install claude\nherdr integration status"
 	},
 	"node": {
 		"lang": "sh",
@@ -207,7 +227,7 @@
 	"health-check": {
 		"lang": "sh",
 		"file": "",
-		"code": "for tool in brew nvim rg tree-sitter herdr claude fnm pyenv \\\n  pipx chruby sdk rustc go gpg git-crypt; do\n  if command -v \"$tool\" >/dev/null; then\n    print -P \"%F{green}✓%f $tool\"\n  else\n    print -P \"%F{red}✗%f $tool\"\n  fi\ndone"
+		"code": "for tool in brew nvim rg tree-sitter claude codex pi herdr fnm \\\n  pyenv pipx chruby sdk rustc go gpg git-crypt; do\n  if command -v \"$tool\" >/dev/null; then\n    print -P \"%F{green}✓%f $tool\"\n  else\n    print -P \"%F{red}✗%f $tool\"\n  fi\ndone"
 	},
 	"weekly-update": {
 		"lang": "sh",

@@ -346,7 +346,7 @@
 				</tbody>
 			</table>
 			</div>
-			<p>The <a href={`${FIRST_GUIDE}#s11`}>first guide has a demo</a> you can hold down to feel the first two rows. This step is the third.</p>
+			<p>The <a href={`${FIRST_GUIDE}#s12`}>first guide has a demo</a> you can hold down to feel the first two rows. This step is the third.</p>
 			<figure class="plate">
 				<SettingsPane title="Keyboard" rows={keyRows} />
 				<figcaption>The slider has no notch for 1, so on my Mac it parks near Slow. It is wrong. Do not drag it to fix it, or you will write a slower value over the fast one.</figcaption>

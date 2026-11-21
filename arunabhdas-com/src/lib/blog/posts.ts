@@ -65,7 +65,7 @@ const allPosts: BlogPost[] = [
 		slug: 'how-to-setup-dream-swe-dev-environment-on-macos',
 		title: 'How to Setup Dream SWE Dev Environment on macOS',
 		description:
-			'Thirteen steps from a factory-fresh Mac to a terminal, editor, and agent setup you will want to live in.',
+			'Fourteen steps from a factory-fresh Mac to a terminal, editor, and agent setup you will want to live in.',
 		date: '2026-11-05',
 		readingMinutes: 14,
 		tags: ['macOS', 'WezTerm', 'Neovim', 'Herdr', 'AI Agents'],

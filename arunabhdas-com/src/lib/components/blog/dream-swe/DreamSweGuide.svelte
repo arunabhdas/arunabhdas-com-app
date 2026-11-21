@@ -25,6 +25,7 @@
 		'zsh',
 		'ssh',
 		'nvim',
+		'agents',
 		'herdr',
 		'langs',
 		'ides',
@@ -33,10 +34,29 @@
 		'apps'
 	];
 
-	const progress = new GuideProgress('dream-swe-macos:done');
+	const OLD_STORE = 'dream-swe-macos:done';
+	const STORE = 'dream-swe-macos:done:v2';
+
+	const progress = new GuideProgress(STORE);
 	setContext(GUIDE_KEY, { progress, blocks, path: '~/dream' });
 
-	onMount(() => progress.load());
+	/** Step 8 joined after the guide was published, so ticks saved before then move up one from 8. */
+	function carryOldTicks() {
+		try {
+			const old = localStorage.getItem(OLD_STORE);
+			if (old === null || localStorage.getItem(STORE) !== null) return;
+			const steps = (JSON.parse(old) as number[]).map((n) => (n >= 8 ? n + 1 : n));
+			localStorage.setItem(STORE, JSON.stringify(steps));
+			localStorage.removeItem(OLD_STORE);
+		} catch {
+			// Nothing to carry. The reader starts with no ticks.
+		}
+	}
+
+	onMount(() => {
+		carryOldTicks();
+		progress.load();
+	});
 </script>
 
 <div class="blog-guide dream-guide">
@@ -52,7 +72,7 @@
 		</div>
 		<div>
 			<h1><span>How to Setup</span><span>Dream SWE Dev</span><span>Environment</span><span>on macOS</span></h1>
-			<p class="lede">Thirteen steps from a factory-fresh Mac to a terminal, editor, and agent setup you will want to live in. Every step is a command you can read first, run yourself, and stop after.</p>
+			<p class="lede">Fourteen steps from a factory-fresh Mac to a terminal, editor, and agent setup you will want to live in. Every step is a command you can read first, run yourself, and stop after.</p>
 			<p class="byline"><a class="start" href="#guide">Start the walk</a><span>By <a href="https://medium.com/@arunabhdas">Arunabh Das</a>, from the <em>Zero to Unicorn</em> series</span></p>
 		</div>
 	</header>
@@ -66,7 +86,7 @@
 				<dt>terminal</dt><dd>WezTerm with the coolnight palette, a Nerd Font, and a little glass</dd>
 				<dt>shell</dt><dd>Stock zsh, Powerlevel10k, autosuggestions, and syntax highlighting</dd>
 				<dt>editor</dt><dd>Neovim with NvChad, plus VS Code, JetBrains, and Xcode when you need them</dd>
-				<dt>agents</dt><dd>Herdr running Claude Code and friends across every project at once</dd>
+				<dt>agents</dt><dd>Claude Code, Codex, and Pi, with Herdr running them across every project at once</dd>
 				<dt>languages</dt><dd>One version manager per language, so <code>node</code> is never the wrong one</dd>
 				<dt>secrets</dt><dd>GPG and git-crypt, plus SSH keys that stay on the Mac that made them</dd>
 			</dl>
@@ -203,7 +223,7 @@
 		<Step n={5} slug="zsh" leg="green" seg="terminal" title="Make the shell feel like yours">
 			<p>No Oh My Zsh and no framework. Stock zsh plus three Homebrew packages gets you everything you will notice.</p>
 			<CodeBlock id="zsh-plugins" />
-			<p>If this is not a fresh Mac, move your old file aside first. Then write the new one. The language manager lines stay quiet until step 9 installs those tools, so you only do this once.</p>
+			<p>If this is not a fresh Mac, move your old file aside first. Then write the new one. The language manager lines stay quiet until step 10 installs those tools, so you only do this once.</p>
 			<CodeBlock id="zshrc" />
 			<p>The Powerlevel10k wizard starts on its own the first time. These answers give you the prompt in the picture below, and you can rerun it any time with <code>p10k configure</code>.</p>
 			<ul>
@@ -254,7 +274,7 @@
 
 		<section class="leg" style="--leg:var(--purple)">
 			<h2>Bring in the editor and the agents</h2>
-			<p>Neovim is where you write. Herdr is where you direct everything that writes alongside you.</p>
+			<p>Neovim is where you write. The agents write alongside you, and Herdr is where you direct them.</p>
 		</section>
 
 		<Step n={7} slug="nvim" leg="purple" seg="editor" title="Install Neovim and NvChad">
@@ -309,11 +329,38 @@
 			</figure>
 		</Step>
 
-		<Step n={8} slug="herdr" leg="purple" seg="agents" title="Run a herd of agents with Herdr">
+		<Step n={8} slug="agents" leg="purple" seg="agents" title="Install Claude Code, Codex, and Pi">
+			<p>Three coding agents, each living in the terminal you just built. Every one of them leads its own documentation with a one-line installer, so that is what this step uses. Each heading below links to the official instructions. If a command here ever disagrees with them, they win.</p>
+			<table class="need">
+				<thead><tr><th>Agent</th><th>First run</th><th>Updates</th></tr></thead>
+				<tbody>
+					<tr><td>Claude Code<br><code>claude</code></td><td>Signs in through the browser. Needs a paid Claude plan or a Console account</td><td>On its own, in the background</td></tr>
+					<tr><td>Codex<br><code>codex</code></td><td>Choose <b>Sign in with ChatGPT</b></td><td>Run the installer again</td></tr>
+					<tr><td>Pi<br><code>pi</code></td><td>Type <code>/login</code>, then pick a subscription or an API key</td><td><code>pi update</code></td></tr>
+				</tbody>
+			</table>
+			<h4>Claude Code</h4>
+			<p>Anthropic's agent. Official instructions: <a href="https://code.claude.com/docs/en/setup">Set up Claude Code</a>.</p>
+			<CodeBlock id="agent-claude" />
+			<h4>Codex</h4>
+			<p>OpenAI's agent. Official instructions: <a href="https://learn.chatgpt.com/docs/codex/cli">Codex CLI</a>.</p>
+			<CodeBlock id="agent-codex" />
+			<h4>Pi</h4>
+			<p>A small, open agent harness from Earendil that works with whichever model provider you already pay for. Official instructions: <a href="https://docs.pi.dev/latest/quickstart">Pi Quickstart</a>.</p>
+			<CodeBlock id="agent-pi" />
+			<p class="side-note"><b>Pi runs on Node.</b> It wants 22.19 or newer, and its installer can fetch that for you. Your own Node arrives in step 10.</p>
+			<p>Open a new terminal window so all three are on your <code>PATH</code>, then check them.</p>
+			<CodeBlock id="agents-check" />
+			<p class="note ok"><b>You should see</b> three version numbers, then Claude Code's report on its own install.</p>
+			<p>Sign in to each one once. Move into any project folder and start them one at a time, following the table above.</p>
+			<p class="note"><b>Prefer Homebrew?</b> Claude Code and Codex also ship as official casks, <code>claude-code</code> and <code>codex</code>. Install either with <code>brew install --cask</code>. Those wait for <code>brew upgrade</code> instead of updating themselves. Pi's docs offer npm and Nix as the alternatives.</p>
+		</Step>
+
+		<Step n={9} slug="herdr" leg="purple" seg="herd" title="Run a herd of agents with Herdr">
 			<p>Herdr is a terminal multiplexer built for AI coding agents. Think tmux with a sidebar that tells you which agent is working, which one is stuck waiting for you, and which one has finished. Sessions keep running when you close the window.</p>
 			<CodeBlock id="herdr-install" />
 			<p class="side-note"><b>Any agent works.</b> Herdr detects <code>claude</code>, <code>codex</code>, <code>opencode</code>, and others on its own when you start them in a pane.</p>
-			<p>Open a new terminal window so <code>claude</code> lands on your <code>PATH</code>, then check both tools and connect them. The integration adds native session restore for Claude.</p>
+			<p>Then connect it to Claude Code. The integration adds native session restore for Claude.</p>
 			<CodeBlock id="herdr-connect" />
 			<p>Now go to a project, run <code>herdr</code>, and start an agent in a pane.</p>
 			<figure class="plate wide">
@@ -350,7 +397,7 @@
 			<p>The last stretch: languages, heavier IDEs, system settings, secrets, and apps.</p>
 		</section>
 
-		<Step n={9} slug="langs" leg="yellow" seg="languages" title="One manager per language">
+		<Step n={10} slug="langs" leg="yellow" seg="languages" title="One manager per language">
 			<p>Install runtimes through Homebrew and you eventually get the classic "wrong version on PATH" afternoon. Each language gets its own manager here, so each project can pin what it needs.</p>
 			<figure class="plate wide">
 				<div class="scroll">
@@ -395,7 +442,7 @@
 			<CodeBlock id="flutter" />
 		</Step>
 
-		<Step n={10} slug="ides" leg="yellow" seg="ides" title="Add the heavyweight IDEs">
+		<Step n={11} slug="ides" leg="yellow" seg="ides" title="Add the heavyweight IDEs">
 			<p>Neovim handles most days. These handle the rest. Install only the ones your work calls for.</p>
 			<h4>Visual Studio Code</h4>
 			<CodeBlock id="vscode-install" />
@@ -411,7 +458,7 @@
 			<CodeBlock id="xcode" />
 		</Step>
 
-		<Step n={11} slug="defaults" leg="yellow" seg="macos" title="Tune macOS for typing code">
+		<Step n={12} slug="defaults" leg="yellow" seg="macos" title="Tune macOS for typing code">
 			<p>Stock macOS is set up for typing letters. Hold <kbd>j</kbd> in Neovim and you will feel the difference at once. Try it here, at the real speeds.</p>
 			<figure class="plate wide">
 				<KeyRepeatDemo />
@@ -423,7 +470,7 @@
 			<p class="note"><b>Safari is deliberately missing.</b> Modern macOS protects Safari's preferences, so scripted writes tend to fail. Turn it on by hand instead: <b>Safari, Settings, Advanced, Show features for web developers</b>.</p>
 		</Step>
 
-		<Step n={12} slug="secrets" leg="yellow" seg="secrets" title="Put your dotfiles and secrets under lock">
+		<Step n={13} slug="secrets" leg="yellow" seg="secrets" title="Put your dotfiles and secrets under lock">
 			<p>Your config is now worth keeping. Put it in a private repo, and let git-crypt encrypt the few files that hold real tokens, so the next Mac takes minutes instead of a weekend.</p>
 			<figure class="plate p-sec wide">
 				<div class="fig">
@@ -448,7 +495,7 @@
 			<p class="side-note"><b>Bring or regenerate?</b> If a token is easy to mint again, mint a fresh one. The encrypted folder is for things that are painful to recreate, not for everything.</p>
 		</Step>
 
-		<Step n={13} slug="apps" leg="yellow" seg="apps" title="Install the apps, in the right order">
+		<Step n={14} slug="apps" leg="yellow" seg="apps" title="Install the apps, in the right order">
 			<p>The order is the trick. Each group makes the next one easier: a browser so you can sign in, then a password manager so the sign-ins are painless, and only then the rest.</p>
 			<figure class="plate wide">
 				<div class="dock" role="img" aria-label="A Dock with five numbered groups in install order">
